@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace DigiAviator.Data
+namespace DigiAviator.Infrastructure.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

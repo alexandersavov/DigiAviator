@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace DigiAviator.Data.Migrations
+namespace DigiAviator.Infrastructure.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

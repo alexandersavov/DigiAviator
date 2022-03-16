@@ -1,4 +1,4 @@
-using DigiAviator.Data;
+using DigiAviator.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
