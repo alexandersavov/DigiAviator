@@ -33,8 +33,11 @@ namespace DigiAviator.Infrastructure.Data.Models
         public string Address { get; set; }
 
         [Required]
-        [StringLength(60)]
+        [StringLength(30)]
         public string Nationality { get; set; }
+
+        [Required]
+        public DateTime BirthDate { get; set; }
 
         [Required]
         [StringLength(30)]
