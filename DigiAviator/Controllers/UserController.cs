@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace DigiAviator.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
