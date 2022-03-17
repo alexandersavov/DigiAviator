@@ -4,6 +4,7 @@ using DigiAviator.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DigiAviator.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220317155304_LicenseAdded")]
+    partial class LicenseAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +41,7 @@ namespace DigiAviator.Infrastructure.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<Guid>("LicenseId")
+                    b.Property<Guid?>("LicenseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -60,15 +62,12 @@ namespace DigiAviator.Infrastructure.Data.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
-                    b.Property<string>("CountryCode")
-                        .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
-
-                    b.Property<DateTime>("DateOfInitialIssue")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("IssueAuthorithy")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
@@ -77,11 +76,6 @@ namespace DigiAviator.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
-
-                    b.Property<string>("IssuingAuthorithy")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -93,6 +87,9 @@ namespace DigiAviator.Infrastructure.Data.Migrations
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
+                    b.Property<Guid>("LicenseTypeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("MiddleName")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -103,6 +100,27 @@ namespace DigiAviator.Infrastructure.Data.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
+                    b.HasKey("Id");
+
+                    b.HasIndex("LicenseTypeId");
+
+                    b.ToTable("Licenses");
+                });
+
+            modelBuilder.Entity("DigiAviator.Infrastructure.Data.Models.LicenseType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<DateTime>("DateOfInitialIssue")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("TitleOfLicense")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -110,7 +128,7 @@ namespace DigiAviator.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Licenses");
+                    b.ToTable("LicenseTypes");
                 });
 
             modelBuilder.Entity("DigiAviator.Infrastructure.Data.Models.Rating", b =>
@@ -124,7 +142,7 @@ namespace DigiAviator.Infrastructure.Data.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<Guid>("LicenseId")
+                    b.Property<Guid?>("LicenseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Validity")
@@ -341,24 +359,27 @@ namespace DigiAviator.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("DigiAviator.Infrastructure.Data.Models.Language", b =>
                 {
-                    b.HasOne("DigiAviator.Infrastructure.Data.Models.License", "License")
+                    b.HasOne("DigiAviator.Infrastructure.Data.Models.License", null)
                         .WithMany("LanguageProficiency")
-                        .HasForeignKey("LicenseId")
+                        .HasForeignKey("LicenseId");
+                });
+
+            modelBuilder.Entity("DigiAviator.Infrastructure.Data.Models.License", b =>
+                {
+                    b.HasOne("DigiAviator.Infrastructure.Data.Models.LicenseType", "LicenseType")
+                        .WithMany()
+                        .HasForeignKey("LicenseTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("License");
+                    b.Navigation("LicenseType");
                 });
 
             modelBuilder.Entity("DigiAviator.Infrastructure.Data.Models.Rating", b =>
                 {
-                    b.HasOne("DigiAviator.Infrastructure.Data.Models.License", "License")
+                    b.HasOne("DigiAviator.Infrastructure.Data.Models.License", null)
                         .WithMany("Ratings")
-                        .HasForeignKey("LicenseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("License");
+                        .HasForeignKey("LicenseId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
