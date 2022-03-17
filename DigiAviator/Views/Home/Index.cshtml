@@ -6,11 +6,11 @@
     <h1 class="display-4">Welcome aviators</h1>
     <p>Move away from the old-fashioned paper logbook. Keep track of your flights, review the state of your pilot license and medical, 
         gather useful flight preparation information: aircraft performance, weight and balance, weather and airport data. To get started, select one of the following options:</p>
-    <form asp-area="" asp-controller="User" asp-action="Register">
+    <form action="/Identity/Account/Register">
             <button type="submit" class="btn btn-block btn-info buttons-home nav-link">Register</button>
     </form>
     <p> </p>
-    <form asp-area="" asp-controller="User" asp-action="Login">
+    <form action="/Identity/Account/Login">
             <button type="submit" class="btn btn-block btn-warning buttons-home nav-link">Login</button>
     </form>
     <img src="~/img/homebg.png" alt="Robin DR400" class="home-bg-image"/>
