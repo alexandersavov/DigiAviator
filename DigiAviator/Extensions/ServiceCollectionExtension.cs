@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using DigiAviator.Infrastructure.Data;
 using DigiAviator.Infrastructure.Data.Repositories;
+using DigiAviator.Core.Contracts;
+using DigiAviator.Core.Services;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -9,6 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IApplicatioDbRepository, ApplicatioDbRepository>();
+            services.AddScoped<IAirportService, AirportService>();
 
             return services;
         }

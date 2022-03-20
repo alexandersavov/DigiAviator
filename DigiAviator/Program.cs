@@ -2,7 +2,6 @@ using DigiAviator.Infrastructure.Data;
 using DigiAviator.ModelBinders;
 using DigitalAviator.Core.Constants;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

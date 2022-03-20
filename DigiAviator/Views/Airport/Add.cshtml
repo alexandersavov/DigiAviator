@@ -1,0 +1,52 @@
+﻿@using DigiAviator.Core.Models
+@model AirportAddViewModel
+
+@{
+	ViewData["Title"] = "Airport - Add";
+}
+
+<div class="card card-primary">
+	<div class="card-header">
+		<h3 class="card-title">Add new airport</h3>
+	</div>
+	<!-- /.card-header -->
+	<!-- form start -->
+	<form id="Add" method="post" asp-controller="Airport" asp-action="Add">
+		<div asp-validation-summary="ModelOnly" class="card-body"></div>
+			<div class="form-group">
+				<label asp-for="Name">Airport name</label>
+				<input asp-for="Name" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter airport name"/>
+			    <span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+			    <label asp-for="IcaoIdentifier">ICAO Identifier</label>
+				<input asp-for="IcaoIdentifier" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ICAO Identifier"/>
+			    <span asp-validation-for="IcaoIdentifier" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Latitude">Latitude</label>
+				<input asp-for="Latitude" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter latitude"/>
+			    <span asp-validation-for="Latitude" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Longitude">Longitude</label>
+				<input asp-for="Longitude" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter longitude"/>
+			    <span asp-validation-for="Longitude" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Elevation">Elevation</label>
+				<input asp-for="Elevation" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter elevation"/>
+			    <span asp-validation-for="Elevation" class="text-danger"></span>
+		</div>
+		<!-- /.card-body -->
+
+		<div class="card-footer">
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	</form>
+</div>
+<!-- /.card -->
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
