@@ -8,15 +8,15 @@ namespace DigiAviator.Core.Services
 {
     public class AirportService : IAirportService
     {
-        private readonly IApplicatioDbRepository repo;
+        private readonly IApplicationDbRepository _repo;
 
-        public AirportService(IApplicatioDbRepository _repo)
+        public AirportService(IApplicationDbRepository repo)
         {
-            repo = _repo;
+            _repo = repo;
         }
         public async Task<IEnumerable<AirportListViewModel>> GetAirports()
         {
-            return await repo.All<Airport>()
+            return await _repo.All<Airport>()
                 .Select(a => new AirportListViewModel()
                 {
                     Id = a.Id.ToString(),
@@ -45,7 +45,8 @@ namespace DigiAviator.Core.Services
 
             if (airport != null)
             {
-                await repo.SaveChangesAsync();
+                await _repo.AddAsync(airport);
+                await _repo.SaveChangesAsync();
                 result = true;
             }
 

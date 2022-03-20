@@ -10,7 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<IApplicatioDbRepository, ApplicatioDbRepository>();
+            services.AddScoped<IApplicationDbRepository, ApplicationDbRepository>();
             services.AddScoped<IAirportService, AirportService>();
 
             return services;
