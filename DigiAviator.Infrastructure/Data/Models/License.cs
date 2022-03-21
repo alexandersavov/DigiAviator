@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DigiAviator.Infrastructure.Data.Models.Identity;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DigiAviator.Infrastructure.Data.Models
 {
@@ -58,5 +60,10 @@ namespace DigiAviator.Infrastructure.Data.Models
 
         [Required]
         public IList<Rating> Ratings { get; set; } = new List<Rating>();
+
+
+        [ForeignKey(nameof(Holder))]
+        public string HolderId { get; set; }
+        public ApplicationUser Holder { get; set; }
     }
 }

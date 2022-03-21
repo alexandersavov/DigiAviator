@@ -1,4 +1,5 @@
 using DigiAviator.Infrastructure.Data;
+using DigiAviator.Infrastructure.Data.Models.Identity;
 using DigiAviator.ModelBinders;
 using DigitalAviator.Core.Constants;
 using Microsoft.AspNetCore.Identity;
@@ -7,8 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddApplicationDbContexts(builder.Configuration);
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
     {

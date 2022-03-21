@@ -1,6 +1,8 @@
-﻿using System;
+﻿using DigiAviator.Infrastructure.Data.Models.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,5 +52,10 @@ namespace DigiAviator.Infrastructure.Data.Models
 
         [Required]
         public IList<FitnessType> FitnessTypes { get; set; } = new List<FitnessType>();
+
+
+        [ForeignKey(nameof(Holder))]
+        public string HolderId { get; set; }
+        public ApplicationUser Holder { get; set; }
     }
 }

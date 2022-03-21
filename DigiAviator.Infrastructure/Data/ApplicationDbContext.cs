@@ -1,10 +1,11 @@
 ﻿using DigiAviator.Infrastructure.Data.Models;
+using DigiAviator.Infrastructure.Data.Models.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigiAviator.Infrastructure.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -16,6 +17,14 @@ namespace DigiAviator.Infrastructure.Data
         {
             modelBuilder.Entity<Runway>()
                 .HasIndex(r => r.AirportId)
+                .IsUnique();
+
+            modelBuilder.Entity<License>()
+                .HasIndex(l => l.HolderId)
+                .IsUnique();
+
+            modelBuilder.Entity<Medical>()
+                .HasIndex(l => l.HolderId)
                 .IsUnique();
 
             base.OnModelCreating(modelBuilder);
