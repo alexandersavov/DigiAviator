@@ -5,47 +5,91 @@
 	ViewData["Title"] = "Airport - Add";
 }
 
-<div class="card card-primary">
-	<div class="card-header">
-		<h3 class="card-title">Add new airport</h3>
-	</div>
-	<!-- /.card-header -->
-	<!-- form start -->
-	<form id="Add" method="post" asp-controller="Airport" asp-action="Add">
-		<div asp-validation-summary="ModelOnly" class="card-body"></div>
-			<div class="form-group">
+<!-- Main content -->
+    <section class="content">
+     <form id="add" method="post">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">General</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
 				<label asp-for="Name">Airport name</label>
 				<input asp-for="Name" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter airport name"/>
 			    <span asp-validation-for="Name" class="text-danger"></span>
-			</div>
-			<div class="form-group">
+              </div>
+              <div class="form-group">
 			    <label asp-for="IcaoIdentifier">ICAO Identifier</label>
 				<input asp-for="IcaoIdentifier" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ICAO Identifier"/>
 			    <span asp-validation-for="IcaoIdentifier" class="text-danger"></span>
-			</div>
-			<div class="form-group">
+              </div>
+              <div class="form-group">
+                <label asp-for="Description">Description</label>
+				<textarea asp-for="Description" type="text" class="form-control" rows="4" id="exampleInputEmail1" placeholder="Enter Description"/></textarea>
+			    <span asp-validation-for="Description" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+                <label asp-for="Type">Type</label>
+                <select asp-for="Type" id="inputStatus" class="form-control custom-select">
+                  <option selected disabled>Select one</option>
+                  <option>International airport</option>
+                  <option>Private GA airfield</option>
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <div class="col-md-6">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Position and elevation</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
 				<label asp-for="Latitude">Latitude</label>
 				<input asp-for="Latitude" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter latitude"/>
 			    <span asp-validation-for="Latitude" class="text-danger"></span>
-			</div>
-			<div class="form-group">
+              </div>
+              <div class="form-group">
 				<label asp-for="Longitude">Longitude</label>
 				<input asp-for="Longitude" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter longitude"/>
 			    <span asp-validation-for="Longitude" class="text-danger"></span>
-			</div>
-			<div class="form-group">
+              </div>
+              <div class="form-group">
 				<label asp-for="Elevation">Elevation</label>
 				<input asp-for="Elevation" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter elevation"/>
 			    <span asp-validation-for="Elevation" class="text-danger"></span>
-		</div>
-		<!-- /.card-body -->
-
-		<div class="card-footer">
-			<button type="submit" class="btn btn-primary">Submit</button>
-		</div>
-	</form>
-</div>
-<!-- /.card -->
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <a href="#" class="btn btn-secondary">Cancel</a>
+          <input type="submit" value="Add new aiport" class="btn btn-success float-right">
+        </div>
+      </div>
+     </form>
+    </section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

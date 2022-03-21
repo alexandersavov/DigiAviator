@@ -1,4 +1,5 @@
 ﻿using DigiAviator.Core.Models;
+using DigiAviator.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,9 @@ namespace DigiAviator.Core.Contracts
         Task<IEnumerable<AirportListViewModel>> GetAirports();
 
         Task<bool> AddAirport(AirportAddViewModel model);
+
+        Task<Airport> GetAirportById(Guid id);
+
+        Task<AirportDetailsViewModel> GetAirportDetails(string id);
     }
 }

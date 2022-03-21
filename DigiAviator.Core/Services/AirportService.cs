@@ -22,13 +22,32 @@ namespace DigiAviator.Core.Services
                     Id = a.Id.ToString(),
                     Name = a.Name,
                     IcaoIdentifier = a.IcaoIdentifier,
-                    Elevation = a.Elevation,
-                    Longitude = a.Longitude,
-                    Latitude = a.Latitude
+                    Elevation = a.Elevation
                 })
                 .ToListAsync();
         }
 
+        public async Task<Airport> GetAirportById(Guid id)
+        {
+            return await _repo.GetByIdAsync<Airport>(id);
+        }
+
+        public async Task<AirportDetailsViewModel> GetAirportDetails(string id)
+        {
+            var airport = await _repo.GetByIdAsync<Airport>(Guid.Parse(id));
+
+            return new AirportDetailsViewModel()
+            {
+                Id = airport.Id.ToString(),
+                Name= airport.Name,
+                IcaoIdentifier= airport.IcaoIdentifier,
+                Description = airport.Description,
+                Type = airport.Type,
+                Elevation = airport.Elevation,
+                Longitude = airport.Longitude,
+                Latitude = airport.Latitude
+            };
+        }
 
         public async Task<bool> AddAirport(AirportAddViewModel model)
         {
@@ -38,6 +57,8 @@ namespace DigiAviator.Core.Services
             {
                 Name = model.Name,
                 IcaoIdentifier = model.IcaoIdentifier,
+                Description = model.Description,
+                Type = model.Type,
                 Latitude = model.Latitude,
                 Longitude = model.Longitude,
                 Elevation = model.Elevation

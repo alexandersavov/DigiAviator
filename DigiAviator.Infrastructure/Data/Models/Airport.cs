@@ -15,6 +15,13 @@ namespace DigiAviator.Infrastructure.Data.Models
         [StringLength(10)]
         public string IcaoIdentifier { get; set; }
 
+        [StringLength(500)]
+        public string Description { get; set; }
+
+        [StringLength(25)]
+        [Required]
+        public string Type { get; set; }
+
         [Required]
         [Range(-180, 180)]
         public double Latitude { get; set; }

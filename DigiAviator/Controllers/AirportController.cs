@@ -51,6 +51,13 @@ namespace DigiAviator.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> Details(string id)
+        {
+            var airports = await _service.GetAirportDetails(id);
+
+            return View(airports);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
