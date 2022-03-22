@@ -15,10 +15,6 @@ namespace DigiAviator.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Runway>()
-                .HasIndex(r => r.AirportId)
-                .IsUnique();
-
             modelBuilder.Entity<License>()
                 .HasIndex(l => l.HolderId)
                 .IsUnique();

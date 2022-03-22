@@ -17,5 +17,7 @@ namespace DigiAviator.Core.Contracts
         Task<Airport> GetAirportById(Guid id);
 
         Task<AirportDetailsViewModel> GetAirportDetails(string id);
+
+        Task<bool> AddRunwayToAirport(string id, RunwayAddViewModel model);
     }
 }

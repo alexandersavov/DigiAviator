@@ -1,0 +1,108 @@
+﻿@using DigiAviator.Core.Models
+@model RunwayAddViewModel
+
+@{
+	ViewData["Title"] = "Runway - Add to airport";
+}
+
+<!-- Main content -->
+    <section class="content">
+     <form id="add" method="post">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">General</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+				<label asp-for="Designation">Runway designation</label>
+				<input asp-for="Designation" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter runway designation"/>
+			    <span asp-validation-for="Designation" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="TrueCourse">True course</label>
+				<input asp-for="TrueCourse" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter true course"/>
+			    <span asp-validation-for="TrueCourse" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="MagneticCourse">Magnetic course</label>
+				<input asp-for="MagneticCourse" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter magnetic course"/>
+			    <span asp-validation-for="MagneticCourse" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="Length">Runway length</label>
+				<input asp-for="Length" type="number" class="form-control" id="exampleInputEmail1" placeholder="Enter runway length"/>
+			    <span asp-validation-for="Length" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="Width">Runway width</label>
+				<input asp-for="Width" type="number" class="form-control" id="exampleInputEmail1" placeholder="Enter runway width"/>
+			    <span asp-validation-for="Width" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="Slope">Runway slope</label>
+				<input asp-for="Slope" type="number" class="form-control" id="exampleInputEmail1" placeholder="Enter runway slope"/>
+			    <span asp-validation-for="Slope" class="text-danger"></span>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <div class="col-md-6">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Performance related information</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+				<label asp-for="TORA">Takeoff Run Available</label>
+				<input asp-for="TORA" type="number" class="form-control" id="exampleInputEmail1" placeholder="Enter TORA"/>
+			    <span asp-validation-for="TORA" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+				<label asp-for="TODA">Takeoff Distance Available</label>
+				<input asp-for="TODA" type="number" class="form-control" id="exampleInputEmail1" placeholder="Enter TODA"/>
+			    <span asp-validation-for="TODA" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+				<label asp-for="ASDA">Accelerate Stop Distance Available</label>
+				<input asp-for="ASDA" type="number" class="form-control" id="exampleInputEmail1" placeholder="Enter ASDA"/>
+			    <span asp-validation-for="ASDA" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+				<label asp-for="LDA">Landing Distance Available</label>
+				<input asp-for="LDA" type="number" class="form-control" id="exampleInputEmail1" placeholder="Enter LDA"/>
+			    <span asp-validation-for="LDA" class="text-danger"></span>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <a href="#" class="btn btn-secondary">Cancel</a>
+          <input type="submit" value="Add new runway to aiport" class="btn btn-success float-right">
+        </div>
+      </div>
+     </form>
+    </section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

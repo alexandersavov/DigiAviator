@@ -51,11 +51,36 @@ namespace DigiAviator.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> AddRunway()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddRunway(string id, RunwayAddViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (await _service.AddRunwayToAirport(id, model))
+            {
+                return RedirectToAction("Overview");
+            }
+            else
+            {
+                ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
+            }
+
+            return View(model);
+        }
+
         public async Task<IActionResult> Details(string id)
         {
-            var airports = await _service.GetAirportDetails(id);
+            var airport = await _service.GetAirportDetails(id);
 
-            return View(airports);
+            return View(airport);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
