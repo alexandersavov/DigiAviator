@@ -1,0 +1,222 @@
+﻿@using DigiAviator.Core.Models
+@model WeightBalanceAddViewModel
+
+@{
+    ViewBag.Title = "Flight preparation - Weight And Balance";
+}
+
+
+<!-- Main content -->
+    <section class="content">
+     <form id="add" method="post">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+          <div class="card card-warning">
+            <div class="card-header">
+              <h3 class="card-title">Basic empty weight, pilots, passengers and cargo</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+                                  <div class="row">
+                    <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+				<label asp-for="BasicEmptyWeight">Basic empty weight</label>
+				<input asp-for="BasicEmptyWeight" type="number" class="form-control" id="exampleInputEmail1" placeholder="Basic empty weight (lbs.)"/>
+			    <span asp-validation-for="BasicEmptyWeight" class="text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+				<label asp-for="BasicEmptyWeightArm">Basic empty weight arm</label>
+				<input asp-for="BasicEmptyWeightArm" type="number" class="form-control" id="exampleInputEmail1" placeholder="Basic empty weight arm" value = "40.14"/>
+			    <span asp-validation-for="BasicEmptyWeightArm" class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div>
+                                    <div class="row">
+                    <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+				<label asp-for="FrontLeftSeat">Front left seat</label>
+				<input asp-for="FrontLeftSeat" type="number" class="form-control" id="exampleInputEmail1" placeholder="Pilot weight (lbs.)"/>
+			    <span asp-validation-for="FrontLeftSeat" class="text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+				<label asp-for="FrontLeftSeatArm">Front left seat arm</label>
+				<input asp-for="FrontLeftSeatArm" type="number" class="form-control" id="exampleInputEmail1" placeholder="Pilot seat arm" value = "37"/>
+			    <span asp-validation-for="FrontLeftSeatArm" class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div>
+                                    <div class="row">
+                    <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+				<label asp-for="FrontRightSeat">Front right seat</label>
+				<input asp-for="FrontRightSeat" type="number" class="form-control" id="exampleInputEmail1" placeholder="Co-pilot weight (lbs.)"/>
+			    <span asp-validation-for="FrontRightSeat" class="text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+				<label asp-for="FrontRightSeatArm">Front right seat arm</label>
+				<input asp-for="FrontRightSeatArm" type="number" class="form-control" id="exampleInputEmail1" placeholder="Co-pilot seat arm" value = "37"/>
+			    <span asp-validation-for="FrontRightSeatArm" class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div>
+                                    <div class="row">
+                    <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+				<label asp-for="RearLeftSeat">Rear left seat</label>
+				<input asp-for="RearLeftSeat" type="number" class="form-control" id="exampleInputEmail1" placeholder="Left passenger weight (lbs.)"/>
+			    <span asp-validation-for="RearLeftSeat" class="text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+				<label asp-for="RearLeftSeatArm">Rear left seat arm</label>
+				<input asp-for="RearLeftSeatArm" type="number" class="form-control" id="exampleInputEmail1" placeholder="Left passenger seat arm" value = "73"/>
+			    <span asp-validation-for="RearLeftSeatArm" class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div>
+                                    <div class="row">
+                    <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+				<label asp-for="RearRightSeat">Rear right seat</label>
+				<input asp-for="RearRightSeat" type="number" class="form-control" id="exampleInputEmail1" placeholder="Right passenger weight (lbs.)"/>
+			    <span asp-validation-for="RearRightSeat" class="text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+				<label asp-for="RearRightSeatArm">Rear right seat arm</label>
+				<input asp-for="RearRightSeatArm" type="number" class="form-control" id="exampleInputEmail1" placeholder="Right passenger seat arm" value = "73"/>
+			    <span asp-validation-for="RearRightSeatArm" class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div>
+                                    <div class="row">
+                    <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+				<label asp-for="BaggageAreaOne">Baggage area one</label>
+				<input asp-for="BaggageAreaOne" type="number" class="form-control" id="exampleInputEmail1" placeholder="Baggage area one weight (lbs.)"/>
+			    <span asp-validation-for="BaggageAreaOne" class="text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+				<label asp-for="BaggageAreaOneArm">Baggage area one arm</label>
+				<input asp-for="BaggageAreaOneArm" type="number" class="form-control" id="exampleInputEmail1" placeholder="Baggage area one arm" value = "95"/>
+			    <span asp-validation-for="BaggageAreaOneArm" class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div>
+                                    <div class="row">
+                    <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+				<label asp-for="BaggageAreaTwo">Baggage area two</label>
+				<input asp-for="BaggageAreaTwo" type="number" class="form-control" id="exampleInputEmail1" placeholder="Baggage area two weight (lbs.)"/>
+			    <span asp-validation-for="BaggageAreaTwo" class="text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+				<label asp-for="BaggageAreaTwoArm">Baggage area two arm</label>
+				<input asp-for="BaggageAreaTwoArm" type="number" class="form-control" id="exampleInputEmail1" placeholder="Baggage area two arm" value = "123"/>
+			    <span asp-validation-for="BaggageAreaTwoArm" class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div> 
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Total, taxi and trip fuel</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+                                  <div class="row">
+                    <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+				<label asp-for="TotalFuel">Total fuel</label>
+				<input asp-for="TotalFuel" type="number" class="form-control" id="exampleInputEmail1" placeholder="Total fuel (gal.)"/>
+			    <span asp-validation-for="TotalFuel" class="text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+				<label asp-for="TotalFuelArm">Total fuel weight arm</label>
+				<input asp-for="TotalFuelArm" type="number" class="form-control" id="exampleInputEmail1" placeholder="Total fuel arm" value = "46"/>
+			    <span asp-validation-for="TotalFuelArm" class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div>
+                                    <div class="row">
+                    <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+				<label asp-for="TaxiFuel">Taxi fuel</label>
+				<input asp-for="TaxiFuel" type="number" class="form-control" id="exampleInputEmail1" placeholder="Taxi fuel (gal.)"/>
+			    <span asp-validation-for="TaxiFuel" class="text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+				<label asp-for="TaxiFuelArm">Taxi fuel arm</label>
+				<input asp-for="TaxiFuelArm" type="number" class="form-control" id="exampleInputEmail1" placeholder="Taxi fuel arm" value = "46"/>
+			    <span asp-validation-for="TaxiFuelArm" class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div>
+                                    <div class="row">
+                    <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+				<label asp-for="TripFuel">Trip fuel</label>
+				<input asp-for="TripFuel" type="number" class="form-control" id="exampleInputEmail1" placeholder="Trip fuel (gal.)"/>
+			    <span asp-validation-for="TripFuel" class="text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+				<label asp-for="TripFuelArm">Trip fuel arm</label>
+				<input asp-for="TripFuelArm" type="number" class="form-control" id="exampleInputEmail1" placeholder="Trip fuel arm" value = "46"/>
+			    <span asp-validation-for="TripFuelArm" class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div>                                    
+               </div> 
+            </div>
+            <!-- /.card-body -->
+          <!-- /.card -->
+      <div class="row">
+        <div class="col-12">
+          <input type="submit" value="Calculate" class="btn btn-success float-right">
+        </div>
+      </div>
+     </form>
+    </section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

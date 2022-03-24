@@ -26,7 +26,7 @@ namespace DigiAviator.Controllers
             return View(airports);
         }
 
-        public async Task<IActionResult> Add()
+        public IActionResult Add()
         {
             return View();
         }
@@ -51,7 +51,7 @@ namespace DigiAviator.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> AddRunway()
+        public IActionResult AddRunway()
         {
             return View();
         }

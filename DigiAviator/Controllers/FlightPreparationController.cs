@@ -8,5 +8,10 @@ namespace DigiAviator.Controllers
         {
             return View();
         }
+
+        public IActionResult WeightAndBalance()
+        {
+            return View();
+        }
     }
 }

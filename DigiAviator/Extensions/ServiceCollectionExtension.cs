@@ -12,6 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddScoped<IApplicationDbRepository, ApplicationDbRepository>();
             services.AddScoped<IAirportService, AirportService>();
+            services.AddScoped<IFlightPreparationService, FlightPreparationService>();
 
             return services;
         }
