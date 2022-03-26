@@ -1,0 +1,53 @@
+﻿@using DigiAviator.Core.Models
+@model CalculatedWeightBalanceViewModel
+
+@{
+    ViewBag.Title = "Flight preparation - Weight And Balance";
+}
+
+<div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Calculated weight, arm and moment for each phase of flight</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th>Weight</th>
+                      <th>Arm</th>
+                      <th>Moment</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="badge bg-danger">Zero fuel weight</span></td>
+                      <td>@Model.ZeroFuelWeight</td>
+                      <td>@Model.ZeroFuelWeightArm</td>
+                      <td>@Model.ZeroFuelWeightMoment</td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge bg-warning">Ramp weight</span></td>
+                      <td>@Model.RampWeight</td>
+                      <td>@Model.RampWeightArm</td>
+                      <td>@Model.RampWeightMoment</td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge bg-primary">Takeoff weight</span></td>
+                      <td>@Model.TakeoffWeight</td>
+                      <td>@Model.TakeoffWeightArm</td>
+                      <td>@Model.TakeoffWeightMoment</td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge bg-success">Landing weight</span></td>
+                      <td>@Model.LandingWeight</td>
+                      <td>@Model.LandingWeightArm</td>
+                      <td>@Model.LandingWeightMoment</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DigiAviator.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace DigiAviator.Core.Contracts
 {
     public interface IFlightPreparationService
     {
-
+        CalculatedWeightBalanceViewModel CalculateWeightBalance(WeightBalanceAddViewModel model);
     }
 }
