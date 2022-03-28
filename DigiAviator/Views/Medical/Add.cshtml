@@ -1,0 +1,102 @@
+﻿@using DigiAviator.Core.Models
+@model MedicalAddViewModel
+
+@{
+	ViewData["Title"] = "Medical - Add";
+}
+
+<!-- Main content -->
+    <section class="content">
+     <form id="add" method="post">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">General</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+				<label asp-for="IssuingAuthorithy">Issuing Authorithy</label>
+				<input asp-for="IssuingAuthorithy" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter the issuing authority of the medical"/>
+			    <span asp-validation-for="IssuingAuthorithy" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="LicenseNumber">License number</label>
+				<input asp-for="LicenseNumber" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter the pilot license number associated with this medical"/>
+			    <span asp-validation-for="LicenseNumber" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="MedicalNumber">Medical number</label>
+				<input asp-for="MedicalNumber" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter the medical number"/>
+			    <span asp-validation-for="MedicalNumber" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="IssuedOn">Issued on:</label>
+				<input asp-for="IssuedOn" type="date" class="form-control" id="exampleInputEmail1" placeholder="Enter the issue date of the medical"/>
+			    <span asp-validation-for="IssuedOn" class="text-danger"></span>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <div class="col-md-6">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Personal identification</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+				<label asp-for="FirstName">First name</label>
+				<input asp-for="FirstName" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter first name"/>
+			    <span asp-validation-for="FirstName" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+				<label asp-for="MiddleName">Middle name</label>
+				<input asp-for="MiddleName" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter middle name"/>
+			    <span asp-validation-for="MiddleName" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+				<label asp-for="LastName">Last name</label>
+				<input asp-for="LastName" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter last name"/>
+			    <span asp-validation-for="LastName" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+				<label asp-for="Nationality">Nationality</label>
+				<input asp-for="Nationality" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter nationality"/>
+			    <span asp-validation-for="Nationality" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="BirthDate">Birth date:</label>
+				<input asp-for="BirthDate" type="date" class="form-control" id="exampleInputEmail1" placeholder="Enter your birth date"/>
+			    <span asp-validation-for="BirthDate" class="text-danger"></span>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <input type="submit" value="Add medical" class="btn btn-success float-right">
+        </div>
+      </div>
+     </form>
+    </section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

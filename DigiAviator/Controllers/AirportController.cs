@@ -10,9 +10,9 @@ namespace DigiAviator.Controllers
     public class AirportController : BaseController
     {
         private readonly IAirportService _service;
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<AirportController> _logger;
 
-        public AirportController(ILogger<HomeController> logger,
+        public AirportController(ILogger<AirportController> logger,
             IAirportService service)
         {
             _logger = logger;
