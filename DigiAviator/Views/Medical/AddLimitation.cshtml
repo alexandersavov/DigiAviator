@@ -1,5 +1,42 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using DigiAviator.Core.Models
+@model LimitationAddViewModel
+
 @{
+	ViewData["Title"] = "Limitation - Add to medical";
 }
+
+<div class="card card-primary">
+	<div class="card-header">
+		<h3 class="card-title">Limitation details</h3>
+	</div>
+
+	<!-- Main content -->
+	<form id="addlimitation" method="post">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<div class="card-body">
+			<div class="form-group">
+				<label asp-for="LimitationCode">Limitation code</label>
+				<input asp-for="LimitationCode" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter limitation code" />
+				<span asp-validation-for="LimitationCode" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Description">Limitation code</label>
+				<input asp-for="Description" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter description" />
+				<span asp-validation-for="Description" class="text-danger"></span>
+			</div>
+		</div>
+		<!-- /.card-body -->
+
+		<div class="row">
+			<div class="col-12">
+				<input type="submit" value="Add limitation to medical" class="btn btn-success float-right">
+			</div>
+		</div>
+	</form>
+</div>
+
+
+	@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+	}
+

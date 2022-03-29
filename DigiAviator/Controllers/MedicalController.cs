@@ -65,50 +65,50 @@ namespace DigiAviator.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddLimitation(string id, LimitationAddViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> AddLimitation(string id, LimitationAddViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-        //    if (await _service.AddLimitationToMedical(id, model))
-        //    {
-        //        return RedirectToAction("Overview");
-        //    }
-        //    else
-        //    {
-        //        ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
-        //    }
+            if (await _service.AddLimitationToMedical(id, model))
+            {
+                return RedirectToAction("Overview");
+            }
+            else
+            {
+                ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
+            }
 
-        //    return View(model);
-        //}
+            return View(model);
+        }
 
         public IActionResult AddFitness()
         {
             return View();
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddFitness(string id, FitnessAddViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> AddFitness(string id, FitnessTypeAddViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-        //    if (await _service.AddFitnessToMedical(id, model))
-        //    {
-        //        return RedirectToAction("Overview");
-        //    }
-        //    else
-        //    {
-        //        ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
-        //    }
+            if (await _service.AddFitnessToMedical(id, model))
+            {
+                return RedirectToAction("Overview");
+            }
+            else
+            {
+                ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
+            }
 
-        //    return View(model);
-        //}
+            return View(model);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -33,9 +33,9 @@ namespace DigiAviator.Core.Models
         public string Nationality { get; set; }
 
         [Required]
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
 
         [Required]
-        public DateTime IssuedOn { get; set; }
+        public string IssuedOn { get; set; }
     }
 }

@@ -7,114 +7,107 @@
 
 
 <div class="card card-primary card-outline">
-              <div class="card-body box-profile">
-                <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="../../dist/img/user4-128x128.jpg"
-                       alt="User profile picture">
-                </div>
+	<div class="card-body box-profile">
+		<div class="text-center">
+			<img class="profile-user-img img-fluid img-circle"
+				 src="~/img/passport.png"
+				 alt="User profile picture">
+		</div>
 
-                <h3 class="profile-username text-center">@Model.FirstName @Model.MiddleName @Model.LastName</h3>
+		<h3 class="profile-username text-center">@Model.FirstName @Model.MiddleName @Model.LastName</h3>
 
-                <p class="text-muted text-center">Nationality: @Model.Nationality Birth date: @Model.BirthDate</p>
+		<p class="text-muted text-center">Nationality: @Model.Nationality Birth date: @Model.BirthDate</p>
 
-                <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
-                    <b>Issued by:</b> <a class="float-right">@Model.IssuingAuthorithy</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Issued on:</b> <a class="float-right">@Model.IssuedOn</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Medical number</b> <a class="float-right">@Model.MedicalNumber</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>License number</b> <a class="float-right">@Model.LicenseNumber</a>
-                  </li>
-                </ul>
+		<ul class="list-group list-group-unbordered mb-3">
+			<li class="list-group-item">
+				<b>Issued by:</b> <a class="float-right">@Model.IssuingAuthorithy</a>
+			</li>
+			<li class="list-group-item">
+				<b>Issued on:</b> <a class="float-right">@Model.IssuedOn</a>
+			</li>
+			<li class="list-group-item">
+				<b>Medical number</b> <a class="float-right">@Model.MedicalNumber</a>
+			</li>
+			<li class="list-group-item">
+				<b>License number</b> <a class="float-right">@Model.LicenseNumber</a>
+			</li>
+		</ul>
+	</div>
+	<!-- /.card-body -->
+</div>
+<!-- /.card -->
+<!-- About Me Box -->
+<div class="card card-primary">
+	<div class="card-header">
+		<h3 class="card-title">Limitations</h3>
+	</div>
+	<!-- /.card-header -->
+	<div class="card-body">
+		<table id="example2" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Limitation code</th>
+					<th>Description</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var limitation in Model.Limitations)
+				{
+					<tr>
+						<td>@limitation.LimitationCode</td>
+						<td>@limitation.Description</td>
+						<td>Delete</td>
+					</tr>
+				}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>Limitation code</th>
+					<th>Description</th>
+					<th>Delete</th>
+				</tr>
+			</tfoot>
+		</table>
+		<a asp-area="" asp-controller="Medical" asp-action="AddLimitation" asp-route-id="@Model.Id" class="btn btn-primary btn-block"><b>Add limitation</b></a>
+	</div>
+	<!-- /.card-body -->
+</div>
 
-                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-
-            <!-- About Me Box -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Limitations</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <strong><i class="fas fa-book mr-1"></i> Education</strong>
-
-                <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
-                </p>
-
-                <hr>
-
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
-                  <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
-                </p>
-
-                <hr>
-
-                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-              </div>
-              <!-- /.card-body -->
-            </div>
-
-                        <!-- About Me Box -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Fit as</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <strong><i class="fas fa-book mr-1"></i> Education</strong>
-
-                <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
-                </p>
-
-                <hr>
-
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
-                  <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
-                </p>
-
-                <hr>
-
-                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-              </div>
-              <!-- /.card-body -->
-            </div>
+<!-- About Me Box -->
+<div class="card card-primary">
+	<div class="card-header">
+		<h3 class="card-title">Fit as</h3>
+	</div>
+	<!-- /.card-header -->
+	<div class="card-body">
+		<table id="example2" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Fitness class</th>
+					<th>Valid until</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var fitnessType in Model.FitnessTypes)
+				{
+					<tr>
+						<td>@fitnessType.FitnessClass</td>
+						<td>@fitnessType.ValidUntil</td>
+						<td>Delete</td>
+					</tr>
+				}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>Fitness class</th>
+					<th>Valid until</th>
+					<th>Delete</th>
+				</tr>
+			</tfoot>
+		</table>
+		<a asp-area="" asp-controller="Medical" asp-action="AddFitness" asp-route-id="@Model.Id" class="btn btn-primary btn-block"><b>Add medicall fitness type</b></a>
+	</div>
+	<!-- /.card-body -->
+</div>

@@ -20,11 +20,11 @@ namespace DigiAviator.Core.Models
 
         public string Nationality { get; set; }
 
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
 
         public IList<LimitationListViewModel> Limitations { get; set; } = new List<LimitationListViewModel>();
 
-        public DateTime IssuedOn { get; set; }
+        public string IssuedOn { get; set; }
 
         public IList<FitnessTypeListViewModel> FitnessTypes { get; set; } = new List<FitnessTypeListViewModel>();
 

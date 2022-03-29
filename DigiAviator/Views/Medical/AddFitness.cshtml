@@ -1,5 +1,42 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using DigiAviator.Core.Models
+@model FitnessTypeAddViewModel
+
 @{
+	ViewData["Title"] = "Fitness type - Add to medical";
 }
+
+<div class="card card-primary">
+	<div class="card-header">
+		<h3 class="card-title">Fitness class details</h3>
+	</div>
+	<form id="addfitness" method="post">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<div class="card-body">
+			<div class="form-group">
+				<label asp-for="FitnessClass">Fitness class</label>
+				<select asp-for="FitnessClass" id="inputStatus" class="form-control custom-select">
+					<option selected disabled>Select fitness class</option>
+					<option>Class I</option>
+					<option>Class II</option>
+					<option>LAPL</option>
+				</select>
+				<span asp-validation-for="FitnessClass" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ValidUntil">Valid until</label>
+				<input asp-for="ValidUntil" type="date" class="form-control" id="exampleInputEmail1" placeholder="Valid until" />
+				<span asp-validation-for="ValidUntil" class="text-danger"></span>
+			</div>
+		</div>
+		<!-- /.card-body -->
+		<div class="row">
+			<div class="col-12">
+				<input type="submit" value="Add fitness class to medical" class="btn btn-success float-right">
+			</div>
+		</div>
+	</form>
+	</div>
+
+	@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+	}

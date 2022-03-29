@@ -12,6 +12,7 @@ namespace DigiAviator.Infrastructure.Data.Models
         [StringLength(10)]
         public string FitnessClass { get; set; }
 
+        [Required]
         public DateTime ValidUntil { get; set; }
 
         [ForeignKey(nameof(Medical))]
