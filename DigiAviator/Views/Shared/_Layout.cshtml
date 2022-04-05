@@ -48,7 +48,7 @@
 							<li class="nav-item dropdown">
 								<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Logbook</a>
 								<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-									<li><a href="#" class="dropdown-item">Instructions </a></li>
+									<li><a class="dropdown-item" asp-area="" asp-controller="Logbook" asp-action="Instructions">Instructions</a></li>
 									<li><a href="#" class="dropdown-item">Overview </a></li>
 									<li><a href="#" class="dropdown-item">Add Flight </a></li>
 									<li><a href="#" class="dropdown-item">Export </a></li>
@@ -60,7 +60,6 @@
 								<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
 									<li><a href="#" class="dropdown-item">Overview </a></li>
 									<li><a href="#" class="dropdown-item">Add License </a></li>
-									<li><a href="#" class="dropdown-item">Edit License </a></li>
 								</ul>
 							</li>
 							<!-- MEDICAL -->
@@ -69,7 +68,6 @@
 								<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
 									<li><a class="dropdown-item" asp-area="" asp-controller="Medical" asp-action="Overview">Overview</a></li>
 									<li><a class="dropdown-item" asp-area="" asp-controller="Medical" asp-action="Add">Add Medical</a></li>
-									<li><a href="#" class="dropdown-item">Edit Medical </a></li>
 								</ul>
 							</li>
 							<!-- FLIGHT PREPARATION -->

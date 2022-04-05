@@ -16,7 +16,8 @@
 
 		<h3 class="profile-username text-center">@Model.FirstName @Model.MiddleName @Model.LastName</h3>
 
-		<p class="text-muted text-center">Nationality: @Model.Nationality Birth date: @Model.BirthDate</p>
+		<p class="text text-center">Nationality: @Model.Nationality</p>
+		<p class="text text-center">Birth date: @Model.BirthDate</p>		
 
 		<ul class="list-group list-group-unbordered mb-3">
 			<li class="list-group-item">
@@ -32,12 +33,14 @@
 				<b>License number</b> <a class="float-right">@Model.LicenseNumber</a>
 			</li>
 		</ul>
+
+		<a asp-area="" asp-controller="Medical" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-block"><b>Edit general information</b></a>
 	</div>
 	<!-- /.card-body -->
 </div>
 <!-- /.card -->
 <!-- About Me Box -->
-<div class="card card-primary">
+<div class="card card-warning">
 	<div class="card-header">
 		<h3 class="card-title">Limitations</h3>
 	</div>
@@ -57,7 +60,7 @@
 					<tr>
 						<td>@limitation.LimitationCode</td>
 						<td>@limitation.Description</td>
-						<td>Delete</td>
+						<td><form asp-area="" asp-controller="Medical" asp-action="DeleteLimitation" asp-route-id="@limitation.Id" method = "post" ><button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button></form></td>
 					</tr>
 				}
 			</tbody>
@@ -75,7 +78,7 @@
 </div>
 
 <!-- About Me Box -->
-<div class="card card-primary">
+<div class="card card-success">
 	<div class="card-header">
 		<h3 class="card-title">Fit as</h3>
 	</div>
@@ -95,7 +98,7 @@
 					<tr>
 						<td>@fitnessType.FitnessClass</td>
 						<td>@fitnessType.ValidUntil</td>
-						<td>Delete</td>
+						<td><form asp-area="" asp-controller="Medical" asp-action="DeleteFitness" asp-route-id="@fitnessType.Id" method = "post" ><button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button></form></td>
 					</tr>
 				}
 			</tbody>

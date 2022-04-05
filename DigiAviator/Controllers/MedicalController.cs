@@ -60,6 +60,35 @@ namespace DigiAviator.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> Edit(string id)
+        {
+            var medicalToEdit = await _service.GetMedicalForEdit(id);
+
+            return View(medicalToEdit);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(MedicalAddViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            string userId = _userManager.GetUserId(User);
+
+            if (await _service.UpdateMedical(userId, model))
+            {
+                return RedirectToAction("Overview");
+            }
+            else
+            {
+                ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
+            }
+
+            return View(model);
+        }
+
         public IActionResult AddLimitation()
         {
             return View();
@@ -85,6 +114,22 @@ namespace DigiAviator.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteLimitation(string id)
+        {
+
+            if (await _service.DeleteLimitation(id))
+            {
+                return RedirectToAction("Overview");
+            }
+            else
+            {
+                ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
+            }
+
+            return View("Overview");
+        }
+
         public IActionResult AddFitness()
         {
             return View();
@@ -108,6 +153,22 @@ namespace DigiAviator.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteFitness(string id)
+        {
+
+            if (await _service.DeleteFitness(id))
+            {
+                return RedirectToAction("Overview");
+            }
+            else
+            {
+                ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
+            }
+
+            return View("Overview");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

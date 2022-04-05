@@ -99,6 +99,44 @@ namespace DigiAviator.Core.Services
             return result;
         }
 
+        public async Task<bool> DeleteFitness(string fitnessTypeId)
+        {
+            bool isDeleted = false;
+            
+            try
+            {
+                await _repo.DeleteAsync<FitnessType>(Guid.Parse(fitnessTypeId));
+                await _repo.SaveChangesAsync();
+                isDeleted = true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
+            return isDeleted;
+        }
+
+        public async Task<bool> DeleteLimitation(string limitationId)
+        {
+            bool isDeleted = false;
+
+            try
+            {
+                await _repo.DeleteAsync<Limitation>(Guid.Parse(limitationId));
+                await _repo.SaveChangesAsync();
+                isDeleted = true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return isDeleted;
+        }
+
         public async Task<MedicalViewModel> GetMedical(string userId)
         {
             var medical = await _repo.All<Medical>()
@@ -114,6 +152,7 @@ namespace DigiAviator.Core.Services
             {
                 limitations.Add(new LimitationListViewModel
                 {
+                    Id = limitation.Id.ToString(),
                     LimitationCode = limitation.LimitationCode,
                     Description = limitation.Description
                 });
@@ -123,8 +162,9 @@ namespace DigiAviator.Core.Services
             {
                 fitnessTypes.Add(new FitnessTypeListViewModel
                 {
+                    Id = fitnessType.Id.ToString(),
                     FitnessClass = fitnessType.FitnessClass,
-                    ValidUntil = fitnessType.ValidUntil.ToString(),
+                    ValidUntil = fitnessType.ValidUntil.ToString("dd/M/yyyy", CultureInfo.InvariantCulture),
                 });
             };
 
@@ -145,5 +185,58 @@ namespace DigiAviator.Core.Services
                 FitnessTypes = fitnessTypes
             };
         }
+
+        public async Task<MedicalAddViewModel> GetMedicalForEdit(string medicalId)
+        {
+            var medical = await _repo.All<Medical>()
+           .Where(m => m.Id == Guid.Parse(medicalId))
+           .FirstOrDefaultAsync();
+
+            return new MedicalAddViewModel()
+            {
+                IssuingAuthorithy = medical.IssuingAuthorithy,
+                LicenseNumber = medical.LicenseNumber,
+                MedicalNumber = medical.MedicalNumber,
+                IssuedOn = medical.IssuedOn.ToString("dd/M/yyyy", CultureInfo.InvariantCulture),
+                FirstName = medical.FirstName,
+                MiddleName = medical.MiddleName,
+                LastName = medical.LastName,
+                BirthDate = medical.BirthDate.ToString("dd/M/yyyy", CultureInfo.InvariantCulture),
+                Nationality = medical.Nationality,
+            };
+        }
+
+        public async Task<bool> UpdateMedical(string userId, MedicalAddViewModel model)
+        {
+            bool updated = false;
+
+            DateTime.TryParse(model.BirthDate, out DateTime birthDate);
+            DateTime.TryParse(model.IssuedOn, out DateTime issuedOnDate);
+
+            var medical = await _repo.All<Medical>()
+            .Where(m => m.HolderId == userId)
+            .FirstOrDefaultAsync();
+
+            if (medical != null)
+            {
+                medical.IssuingAuthorithy = model.IssuingAuthorithy;
+                medical.LicenseNumber = model.LicenseNumber;
+                medical.MedicalNumber = model.MedicalNumber;
+                medical.FirstName = model.FirstName;
+                medical.MiddleName = model.MiddleName;
+                medical.LastName = model.LastName;
+                medical.Nationality = model.Nationality;
+                medical.BirthDate = birthDate;
+                medical.IssuedOn = issuedOnDate;
+
+                _repo.Update(medical);
+                await _repo.SaveChangesAsync();
+                updated = true;
+            }
+
+            return updated;
+        }
+
+
     }
 }
