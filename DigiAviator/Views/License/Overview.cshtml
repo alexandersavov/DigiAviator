@@ -1,0 +1,126 @@
+﻿@using DigiAviator.Core.Models
+@model LicenseViewModel
+
+@{
+	ViewData["Title"] = "License - Details";
+}
+
+
+<div class="card card-primary card-outline">
+	<div class="card-body box-profile">
+		<div class="text-center">
+			<img class="profile-user-img img-fluid img-circle"
+				 src="~/img/travel.png"
+				 alt="User profile picture">
+		</div>
+
+		<h3 class="profile-username text-center">@Model.FirstName @Model.MiddleName @Model.LastName</h3>
+
+		<p class="text text-center">Nationality: @Model.Nationality</p>
+		<p class="text text-center">Birth date: @Model.BirthDate</p>		
+		<p class="text text-center">Birth date: @Model.Address</p>		
+
+		<ul class="list-group list-group-unbordered mb-3">
+			<li class="list-group-item">
+				<b>License number</b> <a class="float-right">@Model.LicenseNumber</a>
+			</li>
+			<li class="list-group-item">
+				<b>State of issue:</b> <a class="float-right">@Model.IssueState</a>
+			</li>
+			<li class="list-group-item">
+				<b>Issuing competent authority:</b> <a class="float-right">@Model.IssuingAuthority</a>
+			</li>
+			<li class="list-group-item">
+				<b>Title of license:</b> <a class="float-right">@Model.TitleOfLicense</a>
+			</li>
+			<li class="list-group-item">
+				<b>Date of initial issue:</b> <a class="float-right">@Model.DateOfInitialIssue</a>
+			</li>
+			<li class="list-group-item">
+				<b>Country code:</b> <a class="float-right">@Model.CountryCode</a>
+			</li>
+		</ul>
+
+		<a asp-area="" asp-controller="License" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-block"><b>Edit general information</b></a>
+	</div>
+	<!-- /.card-body -->
+</div>
+<!-- /.card -->
+<!-- About Me Box -->
+<div class="card card-warning">
+	<div class="card-header">
+		<h3 class="card-title">Limitations</h3>
+	</div>
+	<!-- /.card-header -->
+	<div class="card-body">
+		<table id="example2" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Language</th>
+					<th>ICAO Level</th>
+					<th>Valid until</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var lagnuage in Model.Languages)
+				{
+					<tr>
+						<td>@lagnuage.LanguageName</td>
+						<td>@lagnuage.IcaoLevel</td>
+						<td>@lagnuage.ValidUntil</td>
+						<td><form asp-area="" asp-controller="License" asp-action="DeleteLanguage" asp-route-id="@lagnuage.Id" method = "post" ><button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button></form></td>
+					</tr>
+				}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>Language</th>
+					<th>ICAO Level</th>
+					<th>Valid until</th>
+					<th>Delete</th>
+				</tr>
+			</tfoot>
+		</table>
+		<a asp-area="" asp-controller="License" asp-action="AddLanguage" asp-route-id="@Model.Id" class="btn btn-primary btn-block"><b>Add language</b></a>
+	</div>
+	<!-- /.card-body -->
+</div>
+
+<!-- About Me Box -->
+<div class="card card-success">
+	<div class="card-header">
+		<h3 class="card-title">Fit as</h3>
+	</div>
+	<!-- /.card-header -->
+	<div class="card-body">
+		<table id="example2" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Class type</th>
+					<th>Valid until</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var rating in Model.Ratings)
+				{
+					<tr>
+						<td>@rating.ClassType</td>
+						<td>@rating.ValidUntil</td>
+						<td><form asp-area="" asp-controller="License" asp-action="DeleteRating" asp-route-id="@rating.Id" method = "post" ><button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button></form></td>
+					</tr>
+				}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>Class type</th>
+					<th>Valid until</th>
+					<th>Delete</th>
+				</tr>
+			</tfoot>
+		</table>
+		<a asp-area="" asp-controller="License" asp-action="AddRating" asp-route-id="@Model.Id" class="btn btn-primary btn-block"><b>Add rating</b></a>
+	</div>
+	<!-- /.card-body -->
+</div>

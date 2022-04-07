@@ -10,7 +10,7 @@ namespace DigiAviator.Core.Contracts
         Task<bool> AddFitnessToMedical(string id, FitnessTypeAddViewModel model);
         Task<bool> DeleteLimitation(string limitationId);
         Task<bool> DeleteFitness(string fitnessTypeId);
-        Task<MedicalAddViewModel> GetMedicalForEdit(string userId);
+        Task<MedicalAddViewModel> GetMedicalForEdit(string medicalId);
         Task<bool> UpdateMedical(string userId, MedicalAddViewModel model);
     }
 }
