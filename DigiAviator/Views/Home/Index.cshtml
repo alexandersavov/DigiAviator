@@ -1,17 +1,30 @@
-﻿@{
-    ViewData["Title"] = "Digital Aviator - Home";
+﻿@using DigiAviator.Infrastructure.Data.Models.Identity
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+	ViewData["Title"] = "Digital Aviator - Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome aviators</h1>
-    <p>Move away from the old-fashioned paper logbook. Keep track of your flights, review the state of your pilot license and medical, 
-        gather useful flight preparation information: aircraft performance, weight and balance, weather and airport data. To get started, select one of the following options:</p>
-    <form action="/Identity/Account/Register">
-            <button type="submit" class="btn btn-block btn-info buttons-home nav-link">Register</button>
-    </form>
-    <p> </p>
-    <form action="/Identity/Account/Login">
-            <button type="submit" class="btn btn-block btn-warning buttons-home nav-link">Login</button>
-    </form>
-    <img src="~/img/homebg.png" alt="Robin DR400" class="home-bg-image"/>
-</div>
+@if (SignInManager.IsSignedIn(User))
+{
+
+}
+else
+{
+	<div class="text-center">
+		<h1 class="display-4">Welcome aviators</h1>
+		<p>
+			Move away from the old-fashioned paper logbook. Keep track of your flights, review the state of your pilot license and medical,
+			gather useful flight preparation information: aircraft performance, weight and balance, weather and airport data. To get started, select one of the following options:
+		</p>
+		<form action="/Identity/Account/Register">
+			<button type="submit" class="btn btn-block btn-info buttons-home nav-link">Register</button>
+		</form>
+		<p> </p>
+		<form action="/Identity/Account/Login">
+			<button type="submit" class="btn btn-block btn-warning buttons-home nav-link">Login</button>
+		</form>
+		<img src="~/img/homebg.png" alt="Robin DR400" class="home-bg-image" />
+	</div>
+}
