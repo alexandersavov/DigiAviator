@@ -1,3 +1,4 @@
+using DigiAviator.Hubs;
 using DigiAviator.Infrastructure.Data;
 using DigiAviator.Infrastructure.Data.Models.Identity;
 using DigiAviator.ModelBinders;
@@ -21,6 +22,7 @@ builder.Services.AddControllersWithViews()
         options.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
     });
 
+builder.Services.AddSignalR();
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();
@@ -49,5 +51,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();

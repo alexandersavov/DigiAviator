@@ -87,6 +87,10 @@
 									<li><a class="dropdown-item" asp-area="" asp-controller="Airport" asp-action="Add">Add Airport </a></li>
 								</ul>
 							</li>
+							<!-- CHAT -->
+							<li class="nav-item">
+								<a class="nav-link" asp-area="" asp-controller="AviatorsLounge" asp-action="AviatorsLounge">Chat</a>
+							</li>
 							<!-- LOUGOUT -->
 							<li class="nav-item">
 							<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
