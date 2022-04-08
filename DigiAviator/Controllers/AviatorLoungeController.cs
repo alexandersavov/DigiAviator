@@ -2,9 +2,9 @@
 
 namespace DigiAviator.Controllers
 {
-    public class AviatorsLoungeController : Controller
+    public class AviatorLoungeController : Controller
     {
-        public IActionResult AviatorsLounge()
+        public IActionResult AviatorLounge()
         {
             return View();
         }
