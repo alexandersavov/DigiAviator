@@ -1,0 +1,62 @@
+﻿@using DigiAviator.Core.Models
+@model LogbookAddViewModel
+
+@{
+	ViewData["Title"] = "Logbook - Add";
+}
+
+<!-- Main content -->
+    <section class="content">
+     <form id="add" method="post">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Personal identification</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+				<label asp-for="FirstName">First name</label>
+				<input asp-for="FirstName" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter first name"/>
+			    <span asp-validation-for="FirstName" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+				<label asp-for="MiddleName">Middle name</label>
+				<input asp-for="MiddleName" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter middle name"/>
+			    <span asp-validation-for="MiddleName" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+				<label asp-for="LastName">Last name</label>
+				<input asp-for="LastName" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter last name"/>
+			    <span asp-validation-for="LastName" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+				<label asp-for="Address">Address</label>
+				<input asp-for="Address" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter address"/>
+			    <span asp-validation-for="Address" class="text-danger"></span>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <input type="submit" value="Add logbook" class="btn btn-success float-right">
+        </div>
+      </div>
+     </form>
+    </section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

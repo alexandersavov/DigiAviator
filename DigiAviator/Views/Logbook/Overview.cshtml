@@ -1,0 +1,77 @@
+﻿@using DigiAviator.Core.Models
+@model LogbookViewModel
+
+@{
+	ViewData["Title"] = "Logbook - Details";
+}
+
+
+<div class="card card-primary card-outline">
+	<div class="card-body box-profile">
+		<div class="text-center">
+			<img class="profile-user-img img-fluid img-circle"
+				 src="~/img/departure.png"
+				 alt="User profile picture">
+		</div>
+
+		<h3 class="profile-username text-center">@Model.FirstName @Model.MiddleName @Model.LastName</h3>
+
+		<p class="text text-center">Birth date: @Model.Address</p>
+
+		<a asp-area="" asp-controller="Logbook" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-block"><b>Edit general information</b></a>
+
+	</div>
+	<!-- /.card-body -->
+</div>
+<!-- /.card -->
+<!-- About Me Box -->
+
+		<div class="card card-warning">
+			<div class="card-header">
+				<h3 class="card-title">Flights</h3>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body">
+				<table id="example2" class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Departure</th>
+							<th>Departure Time</th>
+							<th>Arrival</th>
+							<th>Arrival Time</th>
+							<th>Aircraft Type</th>
+							<th>Aircraft Registration</th>
+							<th>Total Flight Time</th>
+							<th>PIC Name</th>
+							<th>Landings</th>
+							<th>PIC Time</th>
+							<th>Copilot Time</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var flight in Model.Flights)
+						{
+							<tr>
+								<td>@flight.DateOfFlight</td>
+								<td>@flight.DepartureAirportICAO</td>
+								<td>@flight.DepartureTimeUTC</td>
+								<td>@flight.ArrivalAirportICAO</td>
+								<td>@flight.ArrivalTimeUTC</td>
+								<td>@flight.AircraftType</td>
+								<td>@flight.AircraftRegistration</td>
+								<td>@flight.TotalFlightTime</td>
+								<td>@flight.PilotInCommandName</td>
+								<td>@flight.LandingsDay</td>
+								<td>@flight.PilotInCommandFunctionTime</td>
+								<td>@flight.CopilotFunctionTime</td>
+								<td><form asp-area="" asp-controller="Logbook" asp-action="DeleteFlight" asp-route-id="@flight.Id" method="post"><button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button></form></td>
+							</tr>
+						}
+					</tbody>
+				</table>
+				<a asp-area="" asp-controller="Logbook" asp-action="AddFlight" asp-route-id="@Model.Id" class="btn btn-primary btn-block"><b>Add flight</b></a>
+			</div>
+			<!-- /.card-body -->
+		</div>

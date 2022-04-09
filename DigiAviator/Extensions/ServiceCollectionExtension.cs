@@ -15,6 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IFlightPreparationService, FlightPreparationService>();
             services.AddScoped<IMedicalService, MedicalService>();
             services.AddScoped<ILicenseService, LicenseService>();
+            services.AddScoped<ILogbookService, LogbookService>();
 
             return services;
         }
