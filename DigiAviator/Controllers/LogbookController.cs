@@ -15,5 +15,10 @@ namespace DigiAviator.Controllers
         {
             return View();
         }
+
+        public IActionResult Overview()
+        {
+            return View();
+        }
     }
 }

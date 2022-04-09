@@ -20,6 +20,10 @@ namespace DigiAviator.Infrastructure.Data
                 .IsUnique();
 
             modelBuilder.Entity<Medical>()
+                .HasIndex(m => m.HolderId)
+                .IsUnique();
+
+            modelBuilder.Entity<Logbook>()
                 .HasIndex(l => l.HolderId)
                 .IsUnique();
 
@@ -34,6 +38,8 @@ namespace DigiAviator.Infrastructure.Data
         public DbSet<Limitation> Limitations { get; set; }
         public DbSet<Airport> Airports { get; set; }
         public DbSet<Runway> Runways { get; set; }
+        public DbSet<Logbook> Logbooks { get; set; }
+        public DbSet<Flight> Flights { get; set; }
 
     }
 }
