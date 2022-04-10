@@ -22,23 +22,25 @@ namespace DigiAviator.Core.Services
 
             bool result = false;
 
+            DateTime.TryParse(model.DateOfFlight, out DateTime dateOfFlight);
+
             var flight = new Flight
             {
-                DateOfFlight = model.DateOfFlight,
+                DateOfFlight = dateOfFlight,
                 DepartureAirportICAO = model.DepartureAirportICAO,
-                DepartureTimeUTC = model.DepartureTimeUTC,
+                DepartureTimeUTC = TimeSpan.Parse(model.DepartureTimeUTC),
                 ArrivalAirportICAO = model.ArrivalAirportICAO,
-                ArrivalTimeUTC = model.ArrivalTimeUTC,
+                ArrivalTimeUTC = TimeSpan.Parse(model.ArrivalTimeUTC),
                 AircraftType = model.AircraftType,
                 AircraftRegistration = model.AircraftRegistration,
-                TotalFlightTime = model.TotalFlightTime,
+                TotalFlightTime = TimeSpan.Parse(model.TotalFlightTime),
                 PilotInCommandName = model.PilotInCommandName,
                 LandingsDay = model.LandingsDay,
                 LandingsNight = model.LandingsNight,
-                PilotInCommandFunctionTime = model.PilotInCommandFunctionTime,
-                CopilotFunctionTime = model.CopilotFunctionTime,
-                DualFunctionTime = model.DualFunctionTime,
-                InstructorFunctionTime = model.InstructorFunctionTime,
+                PilotInCommandFunctionTime = TimeSpan.Parse(model.PilotInCommandFunctionTime),
+                CopilotFunctionTime = TimeSpan.Parse(model.CopilotFunctionTime),
+                DualFunctionTime = TimeSpan.Parse(model.DualFunctionTime),
+                InstructorFunctionTime = TimeSpan.Parse(model.InstructorFunctionTime),
                 LogbookId = logbook.Id
             };
 
@@ -111,17 +113,19 @@ namespace DigiAviator.Core.Services
                     Id = flight.Id.ToString(),
                     DateOfFlight = flight.DateOfFlight.ToString("dd/M/yyyy", CultureInfo.InvariantCulture),
                     DepartureAirportICAO = flight.DepartureAirportICAO,
-                    DepartureTimeUTC = flight.DepartureTimeUTC.ToString("hh:mm", CultureInfo.InvariantCulture),
+                    DepartureTimeUTC = flight.DepartureTimeUTC.ToString(@"hh\:mm"),
                     ArrivalAirportICAO = flight.ArrivalAirportICAO,
-                    ArrivalTimeUTC = flight.ArrivalTimeUTC.ToString("hh:mm", CultureInfo.InvariantCulture),
-                    TotalFlightTime = flight.TotalFlightTime.ToString("hh:mm", CultureInfo.InvariantCulture),
+                    ArrivalTimeUTC = flight.ArrivalTimeUTC.ToString(@"hh\:mm"),
+                    AircraftType = flight.AircraftType,
+                    AircraftRegistration = flight.AircraftRegistration,
+                    TotalFlightTime = flight.TotalFlightTime.ToString(@"hh\:mm"),
                     PilotInCommandName = flight.PilotInCommandName,
                     LandingsDay = flight.LandingsDay,
                     LandingsNight = flight.LandingsNight,
-                    PilotInCommandFunctionTime = flight.PilotInCommandFunctionTime.ToString("hh:mm", CultureInfo.InvariantCulture),
-                    CopilotFunctionTime = flight.CopilotFunctionTime.ToString("hh:mm", CultureInfo.InvariantCulture),
-                    DualFunctionTime = flight.DualFunctionTime.ToString("hh:mm", CultureInfo.InvariantCulture),
-                    InstructorFunctionTime = flight.InstructorFunctionTime.ToString("hh:mm", CultureInfo.InvariantCulture),
+                    PilotInCommandFunctionTime = flight.PilotInCommandFunctionTime.ToString(@"hh\:mm"),
+                    CopilotFunctionTime = flight.CopilotFunctionTime.ToString(@"hh\:mm"),
+                    DualFunctionTime = flight.DualFunctionTime.ToString(@"hh\:mm"),
+                    InstructorFunctionTime = flight.InstructorFunctionTime.ToString(@"hh\:mm"),
                 });
             };
 
@@ -136,5 +140,21 @@ namespace DigiAviator.Core.Services
                 HolderId = logbook.HolderId
             };
         }
-    }
+
+		public async Task<bool> HasLogbook(string userId)
+		{
+            bool hasMedical = false;
+
+            var logbook = await _repo.All<Logbook>()
+                .Where(m => m.HolderId == userId)
+                .FirstOrDefaultAsync();
+
+            if (logbook != null)
+            {
+                hasMedical = true;
+            }
+
+            return hasMedical;
+        }
+	}
 }

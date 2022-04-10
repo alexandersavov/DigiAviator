@@ -5,23 +5,23 @@ namespace DigiAviator.Core.Models
     public class FlightAddViewModel
     {
         [Required]
-        public DateTime DateOfFlight { get; set; }
+        public string DateOfFlight { get; set; }
 
         [Required]
         [StringLength(4, MinimumLength = 4)]
         public string DepartureAirportICAO { get; set; }
 
         [Required]
-        [Range(typeof(TimeSpan), "00:00", "23:59")]
-        public TimeSpan DepartureTimeUTC { get; set; }
+        [RegularExpression(@"^([0-1][0-9]|2[0-3]):?([0-5][0-9])$", ErrorMessage = "Accepted values between 00:00 and 23:59")]
+        public string DepartureTimeUTC { get; set; }
 
         [Required]
         [StringLength(4)]
         public string ArrivalAirportICAO { get; set; }
 
         [Required]
-        [Range(typeof(TimeSpan), "00:00", "23:59")]
-        public TimeSpan ArrivalTimeUTC { get; set; }
+        [RegularExpression(@"^([0-1][0-9]|2[0-3]):?([0-5][0-9])$", ErrorMessage = "Accepted values between 00:00 and 23:59")]
+        public string ArrivalTimeUTC { get; set; }
 
         [Required]
         [StringLength(10)]
@@ -32,8 +32,8 @@ namespace DigiAviator.Core.Models
         public string AircraftRegistration { get; set; }
 
         [Required]
-        [Range(typeof(TimeSpan), "00:00", "20:00")]
-        public TimeSpan TotalFlightTime { get; set; }
+        [RegularExpression(@"^([0-1][0-9]|2[0-3]):?([0-5][0-9])$", ErrorMessage = "Accepted values between 00:00 and 23:59")]
+        public string TotalFlightTime { get; set; }
 
         [Required]
         [StringLength(60)]
@@ -48,19 +48,19 @@ namespace DigiAviator.Core.Models
         public int LandingsNight { get; set; }
 
         [Required]
-        [Range(typeof(TimeSpan), "00:00", "14:00")]
-        public TimeSpan PilotInCommandFunctionTime { get; set; }
+        [RegularExpression(@"^([0-1][0-4]|2[0-3]):?([0-5][0-9])$", ErrorMessage = "Accepted values between 00:00 and 14:00")]
+        public string PilotInCommandFunctionTime { get; set; }
 
         [Required]
-        [Range(typeof(TimeSpan), "00:00", "14:00")]
-        public TimeSpan CopilotFunctionTime { get; set; }
+        [RegularExpression(@"^([0-1][0-4]|2[0-3]):?([0-5][0-9])$", ErrorMessage = "Accepted values between 00:00 and 14:00")]
+        public string CopilotFunctionTime { get; set; }
 
         [Required]
-        [Range(typeof(TimeSpan), "00:00", "14:00")]
-        public TimeSpan DualFunctionTime { get; set; }
+        [RegularExpression(@"^([0-1][0-4]|2[0-3]):?([0-5][0-9])$", ErrorMessage = "Accepted values between 00:00 and 14:00")]
+        public string DualFunctionTime { get; set; }
 
         [Required]
-        [Range(typeof(TimeSpan), "00:00", "14:00")]
-        public TimeSpan InstructorFunctionTime { get; set; }
+        [RegularExpression(@"^([0-1][0-4]|2[0-3]):?([0-5][0-9])$", ErrorMessage = "Accepted values between 00:00 and 14:00")]
+        public string InstructorFunctionTime { get; set; }
     }
 }

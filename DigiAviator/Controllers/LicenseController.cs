@@ -12,10 +12,10 @@ namespace DigiAviator.Controllers
     public class LicenseController : BaseController
     {
         private readonly ILicenseService _service;
-        private readonly ILogger<MedicalController> _logger;
+        private readonly ILogger<LicenseController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public LicenseController(ILogger<MedicalController> logger,
+        public LicenseController(ILogger<LicenseController> logger,
             UserManager<ApplicationUser> userManager,
             ILicenseService service)
         {
@@ -26,6 +26,11 @@ namespace DigiAviator.Controllers
 
         public async Task<IActionResult> Overview()
         {
+            if (!await _service.HasLicense(_userManager.GetUserId(User)))
+            {
+                return RedirectToAction("Add");
+            }
+
             string userId = _userManager.GetUserId(User);
 
             var license = await _service.GetLicense(userId);
@@ -33,8 +38,13 @@ namespace DigiAviator.Controllers
             return View(license);
         }
 
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
+            if (await _service.HasLicense(_userManager.GetUserId(User)))
+            {
+                return RedirectToAction("Overview");
+            }
+
             return View();
         }
 

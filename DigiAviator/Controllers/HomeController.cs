@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace DigiAviator.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -14,6 +14,11 @@ namespace DigiAviator.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Contact()
         {
             return View();
         }

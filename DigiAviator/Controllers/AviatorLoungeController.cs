@@ -2,7 +2,7 @@
 
 namespace DigiAviator.Controllers
 {
-    public class AviatorLoungeController : Controller
+    public class AviatorLoungeController : BaseController
     {
         public IActionResult AviatorLounge()
         {

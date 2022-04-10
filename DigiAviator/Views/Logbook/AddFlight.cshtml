@@ -1,0 +1,133 @@
+﻿@using DigiAviator.Core.Models
+@model FlightAddViewModel
+
+@{
+	ViewData["Title"] = "Flight - Add to logbook";
+}
+
+<!-- Main content -->
+    <section class="content">
+     <form id="add" method="post">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">General</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+				<label asp-for="DateOfFlight">Date of flight</label>
+				<input asp-for="DateOfFlight" type="date" class="form-control" id="exampleInputEmail1" placeholder="Enter runway designation"/>
+			    <span asp-validation-for="DateOfFlight" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="DepartureAirportICAO">Departure Airport (ICAO)</label>
+				<input asp-for="DepartureAirportICAO" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ICAO designation"/>
+			    <span asp-validation-for="DepartureAirportICAO" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="ArrivalAirportICAO">Arrival Airport (ICAO)</label>
+				<input asp-for="ArrivalAirportICAO" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ICAO designation"/>
+			    <span asp-validation-for="ArrivalAirportICAO" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+				<label asp-for="AircraftType">Aircraft type</label>
+				<input asp-for="AircraftType" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter aircraft type (ex. C-182, B738, A320, etc.)"/>
+			    <span asp-validation-for="AircraftType" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+				<label asp-for="AircraftRegistration">Aircraft registration</label>
+				<input asp-for="AircraftRegistration" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter aircraft registration (ex. LZ-DAV)"/>
+			    <span asp-validation-for="AircraftRegistration" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+				<label asp-for="PilotInCommandName">Name of pilot in command</label>
+				<input asp-for="PilotInCommandName" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter last name of PIC"/>
+			    <span asp-validation-for="PilotInCommandName" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="LandingsDay">Day landings</label>
+				<input asp-for="LandingsDay" type="number" class="form-control" id="exampleInputEmail1" placeholder="Enter day landings"/>
+			    <span asp-validation-for="LandingsDay" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="LandingsNight">Night landings</label>
+				<input asp-for="LandingsNight" type="number" class="form-control" id="exampleInputEmail1" placeholder="Enter night landings"/>
+			    <span asp-validation-for="LandingsNight" class="text-danger"></span>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <div class="col-md-6">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Performance related information</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+			    <label asp-for="DepartureTimeUTC">Departure time (UTC)</label>
+				<input asp-for="DepartureTimeUTC" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter departure time (UTC)"/>
+			    <span asp-validation-for="DepartureTimeUTC" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="ArrivalTimeUTC">Arrival time (UTC)</label>
+				<input asp-for="ArrivalTimeUTC" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter arrival time (UTC)"/>
+			    <span asp-validation-for="ArrivalTimeUTC" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="TotalFlightTime">Total flight time</label>
+				<input asp-for="TotalFlightTime" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter total flight time"/>
+			    <span asp-validation-for="TotalFlightTime" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="PilotInCommandFunctionTime">PIC function time</label>
+				<input asp-for="PilotInCommandFunctionTime" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter PIC function time"/>
+			    <span asp-validation-for="PilotInCommandFunctionTime" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="CopilotFunctionTime">Copilot function time</label>
+				<input asp-for="CopilotFunctionTime" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter copilot function time"/>
+			    <span asp-validation-for="CopilotFunctionTime" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="DualFunctionTime">Dual function time</label>
+				<input asp-for="DualFunctionTime" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter dual function time"/>
+			    <span asp-validation-for="DualFunctionTime" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+			    <label asp-for="InstructorFunctionTime">Instructor function time</label>
+				<input asp-for="InstructorFunctionTime" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter instructor function time"/>
+			    <span asp-validation-for="InstructorFunctionTime" class="text-danger"></span>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <a href="#" class="btn btn-secondary">Cancel</a>
+          <input type="submit" value="Add new runway to aiport" class="btn btn-success float-right">
+        </div>
+      </div>
+     </form>
+    </section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -218,7 +218,23 @@ namespace DigiAviator.Core.Services
             };
         }
 
-        public async Task<bool> UpdateLicense(string userId, LicenseAddViewModel model)
+		public async Task<bool> HasLicense(string userId)
+		{
+            bool hasLicense = false;
+
+            var license = await _repo.All<License>()
+                .Where(m => m.HolderId == userId)
+                .FirstOrDefaultAsync();
+
+            if (license != null)
+            {
+                hasLicense = true;
+            }
+
+            return hasLicense;
+        }
+
+		public async Task<bool> UpdateLicense(string userId, LicenseAddViewModel model)
         {
             bool updated = false;
 

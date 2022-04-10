@@ -13,7 +13,6 @@ namespace DigiAviator.Controllers
             _service = service;
         }
 
-
         public IActionResult AirspaceMap()
         {
             return View();

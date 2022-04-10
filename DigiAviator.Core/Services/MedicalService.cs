@@ -206,7 +206,23 @@ namespace DigiAviator.Core.Services
             };
         }
 
-        public async Task<bool> UpdateMedical(string userId, MedicalAddViewModel model)
+		public async Task<bool> HasMedical(string userId)
+		{
+			bool hasMedical = false;
+
+            var medical = await _repo.All<Medical>()
+                .Where(m => m.HolderId == userId)
+                .FirstOrDefaultAsync();
+
+            if (medical != null)
+			{
+                hasMedical = true;
+			}
+
+            return hasMedical;
+        }
+
+		public async Task<bool> UpdateMedical(string userId, MedicalAddViewModel model)
         {
             bool updated = false;
 

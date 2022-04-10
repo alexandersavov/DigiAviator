@@ -26,6 +26,11 @@ namespace DigiAviator.Controllers
 
         public async Task<IActionResult> Overview()
         {
+            if (!await _service.HasMedical(_userManager.GetUserId(User)))
+            {
+                return RedirectToAction("Add");
+            }
+
             string userId = _userManager.GetUserId(User);
 
             var medical = await _service.GetMedical(userId);
@@ -33,8 +38,13 @@ namespace DigiAviator.Controllers
             return View(medical);
         }
 
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
+            if (await _service.HasMedical(_userManager.GetUserId(User)))
+			{
+                return RedirectToAction("Overview");
+            }
+
             return View();
         }
 
