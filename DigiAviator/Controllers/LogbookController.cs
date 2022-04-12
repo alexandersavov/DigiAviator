@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using DigiAviator.Infrastructure.Data.Models.Identity;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace DigiAviator.Controllers
 {
@@ -14,14 +15,17 @@ namespace DigiAviator.Controllers
         private readonly ILogger<LogbookController> _logger;
         private readonly ILogbookService _service;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMemoryCache _memoryCache;
 
         public LogbookController(ILogger<LogbookController> logger,
             UserManager<ApplicationUser> userManager,
-            ILogbookService service)
+            ILogbookService service,
+            IMemoryCache memoryCache)
         {
             _logger = logger;
             _userManager = userManager;
             _service = service;
+            _memoryCache = memoryCache;
         }
 
         public IActionResult Instructions()
@@ -31,41 +35,61 @@ namespace DigiAviator.Controllers
 
         public async Task<IActionResult> Overview()
         {
-            if (!await _service.HasLogbook(_userManager.GetUserId(User)))
+            string userId = _userManager.GetUserId(User);
+
+            //CHECK FOR LOGBOOK AND CACHE THE VALUE FOR 1 MINUTE//
+            string? hasLogbook;
+            hasLogbook = _memoryCache.Get<string>("haslogbook_" + userId);
+
+            if (hasLogbook == null)
+            {
+                bool cachedLogbook = await _service.HasLogbook(userId);
+
+                hasLogbook = cachedLogbook.ToString().ToUpper();
+
+                _memoryCache.Set("haslogbook_" + userId, hasLogbook, TimeSpan.FromMinutes(1));
+            }
+
+            //REDIRECT IF USER DOESN'T HAVE A LOGBOOK//
+            if (hasLogbook == "FALSE")
             {
                 return RedirectToAction("Add");
             }
 
-            string userId = _userManager.GetUserId(User);
+            //OBTAIN THE USER LOGBOOK AND CACHE IT FOR 20 SECONDS//
+            LogbookViewModel logbook;
 
-            var logbook = await _service.GetLogbook(userId);
+            logbook = _memoryCache.Get<LogbookViewModel>("logbook_" + userId);
+
+            if (logbook == null)
+            {
+                logbook = await _service.GetLogbook(userId);
+
+                _memoryCache.Set("logbook_" + userId, logbook, TimeSpan.FromSeconds(20));
+            };
 
             return View(logbook);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Overview(string id, FlightAddViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            if (await _service.AddFlightToLogbook(id, model))
-            {
-                return RedirectToAction("Overview");
-            }
-            else
-            {
-                ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
-            }
-
-            return View(model);
-        }
-
         public async Task<IActionResult> Add()
         {
-            if (await _service.HasLogbook(_userManager.GetUserId(User)))
+            string userId = _userManager.GetUserId(User);
+
+            //CHECK FOR LOGBOOK AND CACHE THE VALUE FOR 1 MINUTE//
+            string? hasLogbook;
+            hasLogbook = _memoryCache.Get<string>("haslogbook_" + userId);
+
+            if (hasLogbook == null)
+            {
+                bool cachedLogbook = await _service.HasLogbook(userId);
+
+                hasLogbook = cachedLogbook.ToString().ToUpper();
+
+                _memoryCache.Set("haslogbook_" + userId, hasLogbook, TimeSpan.FromMinutes(1));
+            }
+
+            //REDIRECT IF USER HAS A LOGBOOK//
+            if (hasLogbook == "TRUE")
             {
                 return RedirectToAction("Overview");
             }
@@ -110,6 +134,7 @@ namespace DigiAviator.Controllers
 
             if (await _service.AddFlightToLogbook(id, model))
             {
+                _memoryCache.Remove("logbook_" + _userManager.GetUserId(User));
                 return RedirectToAction("Overview");
             }
             else
@@ -126,6 +151,7 @@ namespace DigiAviator.Controllers
 
             if (await _service.DeleteFlight(id))
             {
+                _memoryCache.Remove("logbook_" + _userManager.GetUserId(User));
                 return RedirectToAction("Overview");
             }
             else

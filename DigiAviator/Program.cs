@@ -23,6 +23,7 @@ builder.Services.AddControllersWithViews()
     });
 
 builder.Services.AddSignalR();
+builder.Services.AddMemoryCache();
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();

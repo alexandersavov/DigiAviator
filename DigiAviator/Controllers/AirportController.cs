@@ -3,6 +3,7 @@ using DigiAviator.Core.Contracts;
 using DigiAviator.Core.Models;
 using DigiAviator.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics;
 
 namespace DigiAviator.Controllers
@@ -11,17 +12,29 @@ namespace DigiAviator.Controllers
     {
         private readonly IAirportService _service;
         private readonly ILogger<AirportController> _logger;
+        private readonly IMemoryCache _memoryCache;
 
         public AirportController(ILogger<AirportController> logger,
-            IAirportService service)
+            IAirportService service,
+            IMemoryCache memoryCache)
         {
             _logger = logger;
             _service = service;
+            _memoryCache = memoryCache;
         }
 
         public async Task<IActionResult> Overview()
         {
-            var airports = await _service.GetAirports();
+            IEnumerable<AirportListViewModel> airports;
+
+            airports = _memoryCache.Get<List<AirportListViewModel>>("airports");
+
+            if (airports == null)
+            {
+                airports = await _service.GetAirports();
+
+                _memoryCache.Set("airports", airports, TimeSpan.FromSeconds(20));
+            }
 
             return View(airports);
         }
@@ -78,7 +91,16 @@ namespace DigiAviator.Controllers
 
         public async Task<IActionResult> Details(string id)
         {
-            var airport = await _service.GetAirportDetails(id);
+            AirportDetailsViewModel airport;
+
+            airport = _memoryCache.Get<AirportDetailsViewModel>("airport_" + id);
+
+            if (airport == null)
+            {
+                airport = await _service.GetAirportDetails(id);
+
+                _memoryCache.Set("airport_" + id, airport, TimeSpan.FromSeconds(20));
+            };
 
             return View(airport);
         }

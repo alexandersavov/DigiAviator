@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using DigiAviator.Infrastructure.Data.Models.Identity;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace DigiAviator.Controllers
 {
@@ -14,33 +15,76 @@ namespace DigiAviator.Controllers
         private readonly ILicenseService _service;
         private readonly ILogger<LicenseController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMemoryCache _memoryCache;
 
         public LicenseController(ILogger<LicenseController> logger,
             UserManager<ApplicationUser> userManager,
-            ILicenseService service)
+            ILicenseService service, 
+            IMemoryCache memoryCache)
         {
             _logger = logger;
             _service = service;
             _userManager = userManager;
+            _memoryCache = memoryCache;
         }
 
         public async Task<IActionResult> Overview()
         {
-            if (!await _service.HasLicense(_userManager.GetUserId(User)))
+            string userId = _userManager.GetUserId(User);
+
+            //CHECK FOR LICENSE AND CACHE THE VALUE FOR 1 MINUTE//
+            string? hasLicense;
+            hasLicense = _memoryCache.Get<string>("haslicense_" + userId);
+
+            if (hasLicense == null)
+            {
+                bool cachedLicense = await _service.HasLicense(userId);
+
+                hasLicense = cachedLicense.ToString().ToUpper();
+
+                _memoryCache.Set("haslicense_" + userId, hasLicense, TimeSpan.FromMinutes(1));
+            }
+
+            //REDIRECT IF USER DOESN'T HAVE A LICENSE//
+            if (hasLicense == "FALSE")
             {
                 return RedirectToAction("Add");
             }
 
-            string userId = _userManager.GetUserId(User);
+            //OBTAIN THE USER LICENSE AND CACHE IT FOR 20 SECONDS//
+            LicenseViewModel license;
 
-            var license = await _service.GetLicense(userId);
+            license = _memoryCache.Get<LicenseViewModel>("license_" + userId);
+
+            if (license == null)
+            {
+                license = await _service.GetLicense(userId);
+
+                _memoryCache.Set("license_" + userId, license, TimeSpan.FromSeconds(20));
+            };
 
             return View(license);
         }
 
         public async Task<IActionResult> Add()
         {
-            if (await _service.HasLicense(_userManager.GetUserId(User)))
+            var userId = _userManager.GetUserId(User);
+
+            //CHECK FOR LICENSE AND CACHE THE VALUE FOR 1 MINUTE//
+            string? hasLicense;
+            hasLicense = _memoryCache.Get<string>("haslicense_" + userId);
+
+            if (hasLicense == null)
+            {
+                bool cachedLicense = await _service.HasLicense(userId);
+
+                hasLicense = cachedLicense.ToString().ToUpper();
+
+                _memoryCache.Set("haslicense_" + userId, hasLicense, TimeSpan.FromMinutes(1));
+            }
+
+            //REDIRECT IF USER HAS A LICENSE//
+            if (hasLicense == "TRUE")
             {
                 return RedirectToAction("Overview");
             }
@@ -72,7 +116,16 @@ namespace DigiAviator.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
-            var licenseToEdit = await _service.GetLicenseForEdit(id);
+            //CHECK FOR LICENSE AND CACHE THE VALUE FOR 1 MINUTE//
+            LicenseAddViewModel licenseToEdit;
+
+            licenseToEdit = _memoryCache.Get<LicenseAddViewModel>("licenseToEdit_" + id);
+
+            if (licenseToEdit == null)
+            {
+                licenseToEdit = await _service.GetLicenseForEdit(id);
+                _memoryCache.Set("licenseToEdit_" + id, licenseToEdit, TimeSpan.FromMinutes(1));
+            }
 
             return View(licenseToEdit);
         }
@@ -89,6 +142,7 @@ namespace DigiAviator.Controllers
 
             if (await _service.UpdateLicense(userId, model))
             {
+                _memoryCache.Remove("license_" + _userManager.GetUserId(User));
                 return RedirectToAction("Overview");
             }
             else
@@ -114,6 +168,7 @@ namespace DigiAviator.Controllers
 
             if (await _service.AddLanguageToLicense(id, model))
             {
+                _memoryCache.Remove("license_" + _userManager.GetUserId(User));
                 return RedirectToAction("Overview");
             }
             else
@@ -130,6 +185,7 @@ namespace DigiAviator.Controllers
 
             if (await _service.DeleteLanguage(id))
             {
+                _memoryCache.Remove("license_" + _userManager.GetUserId(User));
                 return RedirectToAction("Overview");
             }
             else
@@ -155,6 +211,7 @@ namespace DigiAviator.Controllers
 
             if (await _service.AddRatingToLicense(id, model))
             {
+                _memoryCache.Remove("license_" + _userManager.GetUserId(User));
                 return RedirectToAction("Overview");
             }
             else
@@ -171,6 +228,7 @@ namespace DigiAviator.Controllers
 
             if (await _service.DeleteRating(id))
             {
+                _memoryCache.Remove("license_" + _userManager.GetUserId(User));
                 return RedirectToAction("Overview");
             }
             else
