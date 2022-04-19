@@ -21,6 +21,7 @@
 	@RenderSection("Styles", false)
 	@await RenderSectionAsync("Head", false)
 </head>
+
 <body class="hold-transition layout-top-nav">
 	<div class="wrapper">
 
@@ -130,6 +131,7 @@
 
 			<!-- Main content -->
 			<div class="content">
+				<partial name="_CookieConsentPartial" />
 				<div class="container">
 					@RenderBody()
 				</div><!-- /.container-fluid -->
