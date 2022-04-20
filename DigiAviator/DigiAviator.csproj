@@ -23,4 +23,9 @@
     <ProjectReference Include="..\DigiAviator.Core\DigiAviator.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Airport\" />
+    <Folder Include="Areas\Admin\Views\User\" />
+  </ItemGroup>
+
 </Project>

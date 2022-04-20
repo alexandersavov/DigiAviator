@@ -16,10 +16,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
-    // This lambda determines whether user consent for non-essential 
-    // cookies is needed for a given request.
     options.CheckConsentNeeded = context => true;
-    // requires using Microsoft.AspNetCore.Http;
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
@@ -58,6 +55,9 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapControllerRoute(
+    name: "Area",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

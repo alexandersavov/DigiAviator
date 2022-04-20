@@ -17,6 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ILicenseService, LicenseService>();
             services.AddScoped<ILogbookService, LogbookService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

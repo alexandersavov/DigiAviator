@@ -27,6 +27,26 @@
           </div>
         </div>
         <div class="input-group mb-3">
+@*              <label asp-for="Input.FirstName"></label>*@
+              <input asp-for="Input.FirstName" class="form-control" autocomplete="username" aria-required="true" placeholder="First Name" />
+              <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-font"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+@*              <label asp-for="Input.LastName"></label>*@
+              <input asp-for="Input.LastName" class="form-control" autocomplete="username" aria-required="true" placeholder="Last Name" />
+              <span asp-validation-for="Input.LastName" class="text-danger"></span>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-bold"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
 @*              <label asp-for="Input.Password"></label>*@
               <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true"  placeholder="Password" />
               <span asp-validation-for="Input.Password" class="text-danger"></span>
