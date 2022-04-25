@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics;
 
-namespace DigiAviator.Controllers
+namespace DigiAviator.Areas.Admin.Controllers
 {
     public class AirportController : BaseController
     {
@@ -22,6 +22,7 @@ namespace DigiAviator.Controllers
             _service = service;
             _memoryCache = memoryCache;
         }
+
 
         public async Task<IActionResult> Overview()
         {
@@ -53,6 +54,56 @@ namespace DigiAviator.Controllers
             };
 
             return View(airport);
+        }
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AirportAddViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (await _service.AddAirport(model))
+            {
+                return RedirectToAction("Overview");
+            }
+            else
+            {
+                ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
+            }
+
+            return View(model);
+        }
+
+        public IActionResult AddRunway()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddRunway(string id, RunwayAddViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (await _service.AddRunwayToAirport(id, model))
+            {
+                return RedirectToAction("Overview");
+            }
+            else
+            {
+                ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
+            }
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

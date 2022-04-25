@@ -1,0 +1,48 @@
+﻿@using DigiAviator.Core.Models
+@model IEnumerable<AirportListViewModel>
+
+@{
+	ViewData["Title"] = "Airports - Overview";
+}
+
+<div class="card">
+	<div class="card-header">
+		<h3 class="card-title">Airports</h3>
+	</div>
+	<!-- /.card-header -->
+	<div class="card-body">
+		<table id="example2" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>ICAO Identifier</th>
+					<th>Elevation</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var airport in Model)
+				{
+					<tr>
+						<td>@airport.Name</td>
+						<td>@airport.IcaoIdentifier</td>
+						<td>@airport.Elevation ft.</td>
+						<td>
+							<a asp-area="Admin" asp-action="Details" asp-controller="Airport" asp-route-id="@airport.Id" class="btn btn-block btn-outline-info btn-xs">Details</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>Name</th>
+					<th>ICAO Identifier</th>
+					<th>Elevation</th>
+					<th>Details</th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	<!-- /.card-body -->
+</div>
+<!-- /.card -->
