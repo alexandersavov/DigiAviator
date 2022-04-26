@@ -4,6 +4,6 @@ namespace DigiAviator.Core.Contracts
 {
 	public interface IEmailService
 	{
-		Task<bool> SendEmail(EmailSubmitViewModel model);
+		Task SendEmail(EmailSubmitViewModel model);
 	}
 }

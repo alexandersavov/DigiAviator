@@ -13,7 +13,17 @@ namespace DigiAviator.Controllers
             _service = service;
         }
 
-        public IActionResult AirspaceMap()
+        public IActionResult Airspace()
+        {
+            return View();
+        }
+
+        public IActionResult Precipitation()
+        {
+            return View();
+        }
+
+        public IActionResult Clouds()
         {
             return View();
         }

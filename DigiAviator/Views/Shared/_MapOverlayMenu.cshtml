@@ -1,0 +1,19 @@
+﻿<div class="card-header text-center">
+	<h1 class="display-4">Aviation maps</h1>
+	<p>
+		Familiarize yourself with the airspace and check the current cloud coverage and precipitation:
+	</p>
+
+	<a asp-area="" asp-controller="FlightPreparation" asp-action="Airspace" class="btn btn-app bg-info">
+		<span class="badge bg-danger"></span>
+		<i class="fas fa-map"></i> Airspace
+	</a>
+	<a asp-area="" asp-controller="FlightPreparation" asp-action="Precipitation" class="btn btn-app bg-danger">
+		<span class="badge bg-teal"></span>
+		<i class="fas fa-cloud-rain"></i> Precipitation
+	</a>
+	<a asp-area="" asp-controller="FlightPreparation" asp-action="Clouds" class="btn btn-app bg-warning">
+		<span class="badge bg-info"></span>
+		<i class="fas fa-cloud"></i> Clouds
+	</a>
+</div>

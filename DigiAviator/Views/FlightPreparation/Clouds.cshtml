@@ -1,0 +1,84 @@
+﻿@{
+	ViewBag.Title = "Flight preparation - Clouds";
+}
+
+<partial name="_MapOverlayMenu" />
+
+<script type='text/javascript'>
+
+	function loadMapScenario() {
+
+		var navigationBarMode = Microsoft.Maps.NavigationBarMode;
+		var bounds = Microsoft.Maps.LocationRect.fromLocations(new Microsoft.Maps.Location(28.332823, -81.492279), new Microsoft.Maps.Location(28.435825, -81.622231));
+
+		var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+			center: new Microsoft.Maps.Location(42.625669, 25.292094),
+			mapTypeId: Microsoft.Maps.MapTypeId.canvasDark,
+			supportedMapTypes: [Microsoft.Maps.MapTypeId.road, Microsoft.Maps.MapTypeId.aerial, Microsoft.Maps.MapTypeId.canvasDark],
+			zoom: 7
+		});
+
+		map.setOptions({
+			maxZoom: 11,
+			minZoom: 7
+		})
+
+		var weatherTileSource = new Microsoft.Maps.TileSource({
+			uriConstructor: 'https://tile.openweathermap.org/map/clouds_new/{zoom}/{x}/{y}.png?appid=b13fcfc80d3c113e9424c4d4a269f446'
+		});
+
+		var weatherTileLayer = new Microsoft.Maps.TileLayer({
+			mercator: weatherTileSource,
+		});
+
+		map.layers.insert(weatherTileLayer);
+
+		// Create the infobox for the pushpin
+		var infobox = null;
+
+		//declare addMarker function
+		function addMarker(latitude, longitude, title, description, pid)
+		{
+			var marker = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(latitude, longitude), { color: 'green' });
+
+			infobox = new Microsoft.Maps.Infobox(marker.getLocation(), {
+				visible : false
+			});
+
+			marker.metadata = {
+				id: pid,
+				title: title,
+				description: description
+			};
+
+			Microsoft.Maps.Events.addHandler(marker, 'mouseout', hideInfobox);
+			Microsoft.Maps.Events.addHandler(marker, 'mouseover', showInfobox);
+
+			infobox.setMap(map);
+			map.entities.push(marker);
+			marker.setOptions({ enableHoverStyle: true });
+		};
+
+		function showInfobox(e) {
+			if (e.target.metadata) {
+				infobox.setOptions({
+					location: e.target.getLocation(),
+					title: e.target.metadata.title,
+					description: e.target.metadata.description,
+					visible: true
+				});
+			}
+		}
+
+		function hideInfobox(e) {
+			infobox.setOptions({ visible: false });
+		}
+	}
+</script>
+<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=AomU0JqAr39oQ8bDnuJ17I2EdoFkgyFkA9bfIZ836T-vcbuk8HhZMs8_C-M7r26u&callback=loadMapScenario' async defer></script>
+
+<div class="row">
+	<div class="col-md-12 map">
+		<div id="myMap" style="width:100%; height:610px;"></div>
+	</div>
+</div>

@@ -23,10 +23,12 @@ namespace DigiAviator.Controllers
             _memoryCache = memoryCache;
         }
 
+        //GET ALL AIRPORTS//
         public async Task<IActionResult> Overview()
         {
             IEnumerable<AirportListViewModel> airports;
 
+            //CHECK FOR AIRPORTS AND CACHE THE VALUE FOR 20 SECONDS//
             airports = _memoryCache.Get<List<AirportListViewModel>>("airports");
 
             if (airports == null)
@@ -39,10 +41,12 @@ namespace DigiAviator.Controllers
             return View(airports);
         }
 
+        //GET AIRPORT DETAILS//
         public async Task<IActionResult> Details(string id)
         {
             AirportDetailsViewModel airport;
 
+            //CHECK FOR AIRPORTS DETAILS AND CACHE THE VALUE FOR 20 SECONDS//
             airport = _memoryCache.Get<AirportDetailsViewModel>("airport_" + id);
 
             if (airport == null)

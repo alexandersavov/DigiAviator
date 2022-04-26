@@ -28,16 +28,18 @@ public class AboutController : Controller
             return View(model);
         }
 
-        if (await _service.SendEmail(model))
+        try
         {
-            return RedirectToAction("Overview");
+            await _service.SendEmail(model);
         }
-        else
+        catch (Exception ex)
         {
-            ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
+            TempData[MessageConstant.ErrorMessage] = "An error has occured while processing your request. Please try again.";
         }
 
-        return View(model);
+        TempData[MessageConstant.SuccessMessage] = "Inquiry sent successfully";
+
+        return RedirectToAction("Overview");
     }
 
     public IActionResult Privacy()

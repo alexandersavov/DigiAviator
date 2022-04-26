@@ -27,12 +27,7 @@ namespace DigiAviator.Areas.Admin.Controllers
             _service = service;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> ManageUsers()
+        public async Task<IActionResult> Overview()
         {
             var users = await _service.GetUsers();
 
@@ -73,7 +68,7 @@ namespace DigiAviator.Areas.Admin.Controllers
                 await _userManager.AddToRolesAsync(user, model.RoleNames);
             }
 
-            return RedirectToAction(nameof(ManageUsers));
+            return RedirectToAction(nameof(Overview));
         }
 
         public async Task<IActionResult> Edit(string id)

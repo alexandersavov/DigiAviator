@@ -53,7 +53,7 @@ namespace DigiAviator.Controllers
             //REDIRECT IF USER DOESN'T HAVE A LOGBOOK//
             if (hasLogbook == "FALSE")
             {
-                return RedirectToAction("Add");
+                return RedirectToAction(nameof(Add));
             }
 
             //OBTAIN THE USER LOGBOOK AND CACHE IT FOR 20 SECONDS//
@@ -107,16 +107,18 @@ namespace DigiAviator.Controllers
 
             string userId = _userManager.GetUserId(User);
 
-            if (await _service.AddLogbook(userId, model))
+            try
             {
-                return RedirectToAction("Overview");
+                await _service.AddLogbook(userId, model);
+                TempData[MessageConstant.SuccessMessage] = "Logbook added successfully";
             }
-            else
+            catch (Exception ex)
             {
-                ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
+                TempData[MessageConstant.ErrorMessage] = "An error has occured while creating your logbook. Please try again.";
+                return View(model);
             }
 
-            return View(model);
+            return RedirectToAction(nameof(Overview));            
         }
 
         public IActionResult AddFlight()
@@ -132,34 +134,38 @@ namespace DigiAviator.Controllers
                 return View(model);
             }
 
-            if (await _service.AddFlightToLogbook(id, model))
+            try
             {
+                await _service.AddFlightToLogbook(id, model);
                 _memoryCache.Remove("logbook_" + _userManager.GetUserId(User));
-                return RedirectToAction("Overview");
             }
-            else
+            catch (Exception ex)
             {
-                ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
+                TempData[MessageConstant.ErrorMessage] = "An error has occured while adding your flight. Please try again.";
+                return View(model);
             }
 
-            return View(model);
+            TempData[MessageConstant.SuccessMessage] = "Flight added successfully";
+
+            return RedirectToAction(nameof(Overview));
         }
 
         [HttpPost]
         public async Task<IActionResult> DeleteFlight(string id)
         {
-
-            if (await _service.DeleteFlight(id))
+            try
             {
+                await _service.DeleteFlight(id);
                 _memoryCache.Remove("logbook_" + _userManager.GetUserId(User));
-                return RedirectToAction("Overview");
             }
-            else
+            catch (Exception ex)
             {
-                ViewData[MessageConstant.ErrorMessage] = "Възникна грешка!";
+                TempData[MessageConstant.ErrorMessage] = "An error has occured while deleting your flight. Please try again.";
             }
 
-            return View("Overview");
+            TempData[MessageConstant.SuccessMessage] = "Flight deleted successfully";
+
+            return RedirectToAction(nameof(Overview));
         }
     }
 }

@@ -4,7 +4,7 @@ namespace DigiAviator.Areas.Admin.Controllers
 {
     public class HomeController : BaseController
     {
-        public IActionResult Index()
+        public IActionResult Dashboard()
         {
             return View();
         }

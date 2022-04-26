@@ -16,11 +16,9 @@ namespace DigiAviator.Core.Services
             _repo = repo;
         }
 
-        public async Task<bool> AddFlightToLogbook(string id, FlightAddViewModel model)
+        public async Task AddFlightToLogbook(string id, FlightAddViewModel model)
         {
             var logbook = await _repo.GetByIdAsync<Logbook>(Guid.Parse(id));
-
-            bool result = false;
 
             DateTime.TryParse(model.DateOfFlight, out DateTime dateOfFlight);
 
@@ -49,16 +47,11 @@ namespace DigiAviator.Core.Services
                 logbook.Flights.Add(flight);
                 await _repo.AddAsync(flight);
                 await _repo.SaveChangesAsync();
-                result = true;
             }
-
-            return result;
         }
 
-        public async Task<bool> AddLogbook(string userId, LogbookAddViewModel model)
+        public async Task AddLogbook(string userId, LogbookAddViewModel model)
         {
-            bool result = false;
-
             var logbook = new Logbook
             {
                 FirstName = model.FirstName,
@@ -72,29 +65,13 @@ namespace DigiAviator.Core.Services
             {
                 await _repo.AddAsync(logbook);
                 await _repo.SaveChangesAsync();
-                result = true;
             }
-
-            return result;
         }
 
-        public async Task<bool> DeleteFlight(string flightId)
+        public async Task DeleteFlight(string flightId)
         {
-            bool isDeleted = false;
-
-            try
-            {
-                await _repo.DeleteAsync<Flight>(Guid.Parse(flightId));
-                await _repo.SaveChangesAsync();
-                isDeleted = true;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-            return isDeleted;
+            await _repo.DeleteAsync<Flight>(Guid.Parse(flightId));
+            await _repo.SaveChangesAsync();
         }
 
         public async Task<LogbookViewModel> GetLogbook(string userId)

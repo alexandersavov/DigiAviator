@@ -1,0 +1,45 @@
+﻿@using DigiAviator.Core.Models.User
+@model IEnumerable<UserListViewModel>
+
+@{
+	ViewData["Title"] = "Users - Overview";
+}
+
+<div class="card">
+	<div class="card-header">
+		<h3 class="card-title">Airports</h3>
+	</div>
+	<!-- /.card-header -->
+	<div class="card-body">
+		<table id="example2" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var user in Model)
+				{
+					<tr>
+						<td>@user.Name</td>
+						<td>@user.Email</td>
+						<td>
+							<a asp-area="Admin" asp-controller="User" asp-action="Details"  asp-route-id="@user.Id" class="btn btn-block btn-outline-info btn-xs">Details</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Details</th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	<!-- /.card-body -->
+</div>
+<!-- /.card -->

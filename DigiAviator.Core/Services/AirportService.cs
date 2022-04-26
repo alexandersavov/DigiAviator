@@ -14,6 +14,7 @@ namespace DigiAviator.Core.Services
         {
             _repo = repo;
         }
+
         public async Task<IEnumerable<AirportListViewModel>> GetAirports()
         {
             return await _repo.All<Airport>()
