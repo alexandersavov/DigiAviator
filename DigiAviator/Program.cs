@@ -10,6 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddApplicationDbContexts(builder.Configuration);
 
+builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
+{
+    config.AddEnvironmentVariables();
+});
+
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
