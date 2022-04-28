@@ -8,26 +8,48 @@ namespace DigiAviator.Core.Services
 {
 	public class EmailService : IEmailService
 	{
+		private readonly IValidationService _validationService;
+
+		public EmailService(IValidationService validationService)
+		{
+			_validationService = validationService;
+
+		}
+
 		public async Task SendEmail(EmailSubmitViewModel model)
 		{
+			var (isValid, validationError) = _validationService.ValidateModel(model);
 
-			using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
+			if (!isValid)
 			{
-				smtpClient.Credentials = new NetworkCredential("nottoday", "pal");
-				smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-				smtpClient.EnableSsl = true;
+				throw new ArgumentException("Invalid data submitted.");
+			}
 
-				using (MailMessage mail = new MailMessage())
+            try
+            {
+				using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
 				{
-					mail.From = new MailAddress("nottoday", "Digital Aviator Support");
-					mail.To.Add(new MailAddress("nottoday"));
-					mail.CC.Add(new MailAddress(model.Email, model.Name));
-					mail.Subject = model.Subject;
-					mail.Body = model.Body;
+					smtpClient.Credentials = new NetworkCredential("djowlie@gmail.com", "wabalabadubdub");
+					smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+					smtpClient.EnableSsl = true;
 
-					await smtpClient.SendMailAsync(mail);
+					using (MailMessage mail = new MailMessage())
+					{
+						mail.From = new MailAddress("djowlie@gmail.com", "Digital Aviator Support");
+						mail.To.Add(new MailAddress("djowlie@gmail.com"));
+						mail.CC.Add(new MailAddress(model.Email, model.Name));
+						mail.Subject = model.Subject;
+						mail.Body = model.Body;
+
+						await smtpClient.SendMailAsync(mail);
+					}
 				}
 			}
+			catch (Exception)
+            {
+                throw new Exception("Could not send email.");
+			}
+			
 		}
 	}
 }

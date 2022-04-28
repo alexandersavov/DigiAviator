@@ -14,9 +14,11 @@ namespace DigiAviator.Core.Models
         public string Designation { get; set; }
 
         [Required]
+        [StringLength(3)]
         public string TrueCourse { get; set; }
 
         [Required]
+        [StringLength(3)]
         public string MagneticCourse { get; set; }
 
         [Range(0, 20000)]

@@ -9,10 +9,13 @@ namespace DigiAviator.Core.Services
     public class AirportService : IAirportService
     {
         private readonly IApplicationDbRepository _repo;
+        private readonly IValidationService _validationService;
 
-        public AirportService(IApplicationDbRepository repo)
+        public AirportService(IApplicationDbRepository repo,
+                    IValidationService validationService)
         {
             _repo = repo;
+            _validationService = validationService;
         }
 
         public async Task<IEnumerable<AirportListViewModel>> GetAirports()
@@ -30,7 +33,14 @@ namespace DigiAviator.Core.Services
 
         public async Task<Airport> GetAirportById(Guid id)
         {
-            return await _repo.GetByIdAsync<Airport>(id);
+            var airport = await _repo.GetByIdAsync<Airport>(id);
+
+            if (airport == null)
+            {
+                throw new ArgumentException("Unknown airport id.");
+            }
+
+            return airport;
         }
 
         public async Task<AirportDetailsViewModel> GetAirportDetails(string id)
@@ -39,6 +49,11 @@ namespace DigiAviator.Core.Services
                 .Where(a => a.Id == Guid.Parse(id))
                 .Include(r => r.Runways)
                 .FirstOrDefaultAsync();
+
+            if (airport == null)
+            {
+                throw new ArgumentException("Unknown airport id.");
+            }
 
             List<RunwayListViewModel> runways = new List<RunwayListViewModel>();
 
@@ -88,11 +103,22 @@ namespace DigiAviator.Core.Services
                 Elevation = model.Elevation
             };
 
-            if (airport != null)
+            var (isValid, validationError) = _validationService.ValidateModel(airport);
+
+            if (!isValid)
+            {
+                throw new ArgumentException("Invalid airport information.");
+            }
+
+            try
             {
                 await _repo.AddAsync(airport);
                 await _repo.SaveChangesAsync();
                 result = true;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Unable to save airport.");
             }
 
             return result;
@@ -101,6 +127,11 @@ namespace DigiAviator.Core.Services
         public async Task<bool> AddRunwayToAirport(string id, RunwayAddViewModel model)
         {
             var airport = await _repo.GetByIdAsync<Airport>(Guid.Parse(id));
+
+            if (airport == null)
+            {
+                throw new ArgumentException("Unknown airport id.");
+            }
 
             bool result = false;
 
@@ -119,13 +150,24 @@ namespace DigiAviator.Core.Services
                 LDA = model.LDA
             };
 
+            var (isValid, validationError) = _validationService.ValidateModel(runway);
+
+            if (!isValid)
+            {
+                throw new ArgumentException("Invalid runway information, could not add runway to airport");
+            }
+
             airport.Runways.Add(runway);
 
-            if (airport != null)
+            try
             {
                 await _repo.AddAsync(runway);
                 await _repo.SaveChangesAsync();
                 result = true;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Unable to save airport.");
             }
 
             return result;

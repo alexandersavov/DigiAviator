@@ -1,17 +1,27 @@
 ﻿using DigiAviator.Core.Contracts;
 using DigiAviator.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DigiAviator.Core.Services
 {
     public class FlightPreparationService : IFlightPreparationService
     {
+        private readonly IValidationService _validationService;
+
+        public FlightPreparationService(IValidationService validationService)
+        {
+            _validationService = validationService;
+
+        }
+
         public CalculatedWeightBalanceViewModel CalculateWeightBalance(WeightBalanceAddViewModel model)
         {
+            var (isValid, validationError) = _validationService.ValidateModel(model);
+
+            if (!isValid)
+            {
+                throw new ArgumentException("Invalid data submitted.");
+            }
+
             //Calculate plane, passengers and cargo moments//
             double basicEmptyWeightMoment = CalculateMoment(model.BasicEmptyWeight, model.BasicEmptyWeightArm);
             double frontLeftSeatMoment = CalculateMoment(model.FrontLeftSeat, model.FrontLeftSeatArm);
@@ -81,6 +91,11 @@ namespace DigiAviator.Core.Services
 
         private double CalculateArm(double weight, double moment)
         {
+            if (weight == 0)
+            {
+                throw new ArgumentException("Cannot divide by zero.");
+            }
+
             return moment / weight;
         }
 

@@ -30,10 +30,10 @@ namespace DigiAviator.Controllers
 
         public async Task<IActionResult> CreateRole()
         {
-            //await _roleManager.CreateAsync(new IdentityRole()
-            //{
-            //    Name = "Administrator"
-            //});
+            await _roleManager.CreateAsync(new IdentityRole()
+            {
+                Name = "Administrator"
+            });
 
             return Ok();
         }
