@@ -5,6 +5,12 @@
 	ViewData["Title"] = "Logbook - Details";
 }
 
+<div class="text-center">
+	<h1 class="display-4">Logbook</h1>
+	<p>
+		Add or remove a flight, modify your logbook information:
+	</p>
+</div>
 
 <div class="card card-primary card-outline">
 	<div class="card-body box-profile">
@@ -16,7 +22,7 @@
 
 		<h3 class="profile-username text-center">@Model.FirstName @Model.MiddleName @Model.LastName</h3>
 
-		<p class="text text-center">Birth date: @Model.Address</p>
+		<p class="text text-center">Address: @Model.Address</p>
 
 		<a asp-area="" asp-controller="Logbook" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-block"><b>Edit general information</b></a>
 
@@ -41,7 +47,7 @@
 							<th>Arr. ICAO</th>
 							<th>Arr. Time</th>
 							<th>A/C Type</th>
-							<th>A/C Reg.</th>
+							<th>A/C Regist.</th>
 							<th>Flight Time</th>
 							<th>PIC Name</th>
 							<th>Landings</th>

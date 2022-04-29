@@ -23,6 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
 	@RenderSection("Styles", false)
+	@await Html.PartialAsync("_Favicons")
 	@await RenderSectionAsync("Head", false)
 </head>
 <body class="hold-transition sidebar-mini">

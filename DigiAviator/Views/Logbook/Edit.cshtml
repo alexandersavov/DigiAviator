@@ -2,13 +2,13 @@
 @model LogbookAddViewModel
 
 @{
-	ViewData["Title"] = "Logbook - Add";
+	ViewData["Title"] = "Logbook - Edit";
 }
 
 <div class="text-center">
-	<h1 class="display-4">Create your logbook.</h1>
+	<h1 class="display-4">Edit your logbook.</h1>
 	<p>
-		Before logging any flights, please fill out the form below and create your very own logbook.
+		Change incorrect information from this page.
 	</p>
 </div>
 
@@ -20,7 +20,7 @@
         <div class="col-md-12">
           <div class="card card-secondary">
             <div class="card-header">
-              <h3 class="card-title">Personal identification</h3>
+              <h3 class="card-title">Update personal identification</h3>
             </div>
             <div class="card-body">
               <div class="form-group">
@@ -51,7 +51,8 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <input type="submit" value="Add logbook" class="btn btn-success float-right">
+          <a asp-area="" asp-controller="Logbook" asp-action="Overview" class="btn btn-secondary">Cancel</a>
+          <input type="submit" value="Update logbook" class="btn btn-success float-right">
         </div>
       </div>
      </form>
@@ -60,4 +61,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-

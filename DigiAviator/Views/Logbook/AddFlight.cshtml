@@ -5,6 +5,13 @@
 	ViewData["Title"] = "Flight - Add to logbook";
 }
 
+<div class="text-center">
+	<h1 class="display-4">Add your flight</h1>
+	<p>
+		Fill out the form and add a new flight to your logbook. Accepted time format is "HH:MM".
+	</p>
+</div>
+
 <!-- Main content -->
     <section class="content">
      <form id="add" method="post">
@@ -14,11 +21,6 @@
           <div class="card card-primary">
             <div class="card-header">
               <h3 class="card-title">General</h3>
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-              </div>
             </div>
             <div class="card-body">
               <div class="form-group">
@@ -70,12 +72,6 @@
           <div class="card card-secondary">
             <div class="card-header">
               <h3 class="card-title">Performance related information</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-              </div>
             </div>
             <div class="card-body">
               <div class="form-group">
@@ -121,8 +117,8 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <a href="#" class="btn btn-secondary">Cancel</a>
-          <input type="submit" value="Add new runway to aiport" class="btn btn-success float-right">
+          <a asp-area="" asp-controller="Logbook" asp-action="Overview" class="btn btn-secondary">Cancel</a>
+          <input type="submit" value="Add flight" class="btn btn-success float-right">
         </div>
       </div>
      </form>

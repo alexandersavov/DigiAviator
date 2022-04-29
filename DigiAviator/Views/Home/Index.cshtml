@@ -19,7 +19,7 @@
 
 		<div class="info-box-content">
 			<span class="info-box-text">Total flight time</span>
-			<span class="info-box-number">5,200 Hours</span>
+			<span class="info-box-number">@ViewData["TotalFlightTime"] hours</span>
 		</div>
 		<!-- /.info-box-content -->
 </div>
@@ -28,7 +28,7 @@
 
 		<div class="info-box-content">
 			<span class="info-box-text">Longest flight</span>
-			<span class="info-box-number">20 Hours</span>
+			<span class="info-box-number">@ViewData["LongestFlight"] hours</span>
 		</div>
 		<!-- /.info-box-content -->
 </div>
@@ -37,7 +37,7 @@
 
 		<div class="info-box-content">
 			<span class="info-box-text">Most flown aircraft</span>
-			<span class="info-box-number">LZ-AIA</span>
+			<span class="info-box-number">@ViewData["MostFlownAircraft"]</span>
 		</div>
 		<!-- /.info-box-content -->
 </div>
@@ -47,25 +47,56 @@
 		</p>
 	</div>
 	<!-- /.info-box -->
-	<div class="info-box mb-3 bg-success">
+	@if(@ViewData["ValidMedical"] == "No medical added." || @ViewData["ValidMedical"] == "Your medical certificate currently has no valid fitness types.")
+	{
+			<div class="info-box mb-3 bg-danger">
 		<span class="info-box-icon"><i class="far fa-heart"></i></span>
 
 		<div class="info-box-content">
-			<span class="info-box-text">Your medical is valid</span>
-			<span class="info-box-number">Expiration date: </span>
+			<span class="info-box-text">Medical:</span>
+			<span class="info-box-number">@ViewData["ValidMedical"]</span>
 		</div>
 		<!-- /.info-box-content -->
 </div>
+	}
+	else
+	{
+			<div class="info-box mb-3 bg-success">
+		<span class="info-box-icon"><i class="far fa-heart"></i></span>
+
+		<div class="info-box-content">
+			<span class="info-box-text">Medical:</span>
+			<span class="info-box-number">@ViewData["ValidMedical"]</span>
+		</div>
+		<!-- /.info-box-content -->
+</div>
+	}
+
 	<!-- /.info-box -->
-	<div class="info-box mb-3 bg-success">
+	@if(@ViewData["ValidLicense"] == "No license added." || @ViewData["ValidLicense"] == "Your license currently has no valid ratings.")
+	{
+			<div class="info-box mb-3 bg-danger">
 		<span class="info-box-icon"><i class="far fa-address-card"></i></span>
 
 		<div class="info-box-content">
-			<span class="info-box-text">Your license is valid</span>
-			<span class="info-box-number">Expiration date: </span>
+			<span class="info-box-text">License:</span>
+			<span class="info-box-number">@ViewData["ValidLicense"]</span>
 		</div>
 		<!-- /.info-box-content -->
 </div>
+	}
+	else
+	{
+			<div class="info-box mb-3 bg-success">
+		<span class="info-box-icon"><i class="far fa-address-card"></i></span>
+
+		<div class="info-box-content">
+			<span class="info-box-text">License:</span>
+			<span class="info-box-number">@ViewData["ValidLicense"]</span>
+		</div>
+		<!-- /.info-box-content -->
+</div>
+	}
 	<!-- /.info-box -->
 }
 else

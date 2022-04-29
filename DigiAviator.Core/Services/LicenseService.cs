@@ -4,6 +4,7 @@ using DigiAviator.Infrastructure.Data.Models;
 using DigiAviator.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Text;
 
 namespace DigiAviator.Core.Services
 {
@@ -234,7 +235,41 @@ namespace DigiAviator.Core.Services
             return hasLicense;
         }
 
-		public async Task<bool> UpdateLicense(string userId, LicenseAddViewModel model)
+        public async Task<string> HasValidLicense(string userId)
+        {
+            var license = await _repo.All<License>()
+                .Where(l => l.HolderId == userId)
+                .Include(l => l.Ratings)
+                .FirstOrDefaultAsync();
+
+            if (license == null)
+            {
+                return "No license added.";
+            }
+
+            if (license.Ratings.Count == 0)
+            {
+                return "Your license currently has no valid ratings.";
+            }
+
+            var sb = new StringBuilder();
+
+            foreach (var rating in license.Ratings)
+            {
+                if (rating.Validity > DateTime.Now)
+                {
+                    sb.AppendLine($"{rating.ClassType} valid until {rating.Validity:D}");
+                }
+                else
+                {
+                    sb.AppendLine($"{rating.ClassType} expired on {rating.Validity:D}");
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        public async Task<bool> UpdateLicense(string userId, LicenseAddViewModel model)
         {
             bool updated = false;
 

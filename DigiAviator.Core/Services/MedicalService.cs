@@ -4,6 +4,7 @@ using DigiAviator.Infrastructure.Data.Models;
 using DigiAviator.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Text;
 
 namespace DigiAviator.Core.Services
 {
@@ -222,7 +223,41 @@ namespace DigiAviator.Core.Services
             return hasMedical;
         }
 
-		public async Task<bool> UpdateMedical(string userId, MedicalAddViewModel model)
+        public async Task<string> HasValidMedical(string userId)
+        {
+            var medical = await _repo.All<Medical>()
+                .Where(m => m.HolderId == userId)
+                .Include(f => f.FitnessTypes)
+                .FirstOrDefaultAsync();
+
+            if (medical == null)
+            {
+                return "No medical added.";
+            }
+
+            if (medical.FitnessTypes.Count == 0)
+            {
+                return "Your medical certificate currently has no valid fitness types.";
+            }
+
+            var sb = new StringBuilder();
+
+            foreach (var medicalFitness in medical.FitnessTypes)
+            {
+                if (medicalFitness.ValidUntil > DateTime.Now)
+                {
+                    sb.AppendLine($"{medicalFitness.FitnessClass} valid until {medicalFitness.ValidUntil:D}");
+                }
+                else
+                {
+                    sb.AppendLine($"{medicalFitness.FitnessClass} expired on {medicalFitness.ValidUntil:D}");
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        public async Task<bool> UpdateMedical(string userId, MedicalAddViewModel model)
         {
             bool updated = false;
 

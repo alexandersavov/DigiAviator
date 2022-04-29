@@ -21,6 +21,7 @@
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
 	@RenderSection("Styles", false)
+	@await Html.PartialAsync("_Favicons")
 	@await RenderSectionAsync("Head", false)
 </head>
 
@@ -149,7 +150,7 @@
 				DISCLAIMER: NOT TO BE USED FOR REAL WORLD FLYING. Always consult your instructor and comply with local regulations.
 			</div>
 			<!-- Default to the left -->
-			<strong>Copyright &copy; 2022 <a href="https://adminlte.io">Digital aviator</a>.</strong> All rights reserved.
+			<strong>Copyright &copy; 2022 <a href="https://digitalenaviator.azurewebsites.net/">Digital aviator</a>.</strong> All rights reserved.
 			@if (User.IsInRole("Administrator"))
 			{
 				<a class="nav-link fas fa-user-cog d-none d-sm-inline" asp-area="Admin" asp-controller="Home" asp-action="Dashboard"></a>

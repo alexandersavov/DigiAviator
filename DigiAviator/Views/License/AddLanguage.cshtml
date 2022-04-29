@@ -5,6 +5,13 @@
 	ViewData["Title"] = "Language - Add to license";
 }
 
+<div class="text-center">
+	<h1 class="display-4">Add language proficiency</h1>
+	<p>
+		Fill out the form and add new ICAO language proficiency to your logbook.
+	</p>
+</div>
+
 <div class="card card-primary">
 	<div class="card-header">
 		<h3 class="card-title">Language proficiency details</h3>
@@ -21,7 +28,15 @@
 			</div>
 			<div class="form-group">
 				<label asp-for="IcaoLevel">ICAO Level</label>
-				<input asp-for="IcaoLevel" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ICAO proficiency level" />
+				<select asp-for="IcaoLevel" id="inputStatus" class="form-control custom-select">
+					<option selected disabled>Select ICAO proficiency level</option>
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+					<option>6</option>
+				</select>
 				<span asp-validation-for="IcaoLevel" class="text-danger"></span>
 			</div>
             <div class="form-group">

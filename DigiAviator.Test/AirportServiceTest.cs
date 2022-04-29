@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace DigiAviator.Test
@@ -51,15 +52,9 @@ namespace DigiAviator.Test
             var actual = (List<AirportListViewModel>) await service.GetAirports();
 
             Assert.DoesNotThrowAsync(async () => await service.GetAirports());
-            Assert.AreEqual(expected.Count, actual.Count);
-
-            for (int i = 0; i < actual.Count; i++)
-            {
-                Assert.AreEqual(expected[i].Id, actual[i].Id);
-                Assert.AreEqual(expected[i].Name, actual[i].Name);
-                Assert.AreEqual(expected[i].IcaoIdentifier, actual[i].IcaoIdentifier);
-                Assert.AreEqual(expected[i].Elevation, actual[i].Elevation);
-            }
+            var expectedJson = JsonSerializer.Serialize(expected);
+            var actualJson = JsonSerializer.Serialize(actual);
+            Assert.AreEqual(expectedJson, actualJson);
         }
 
         [Test]

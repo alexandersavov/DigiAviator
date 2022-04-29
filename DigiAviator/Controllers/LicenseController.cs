@@ -48,7 +48,8 @@ namespace DigiAviator.Controllers
             //REDIRECT IF USER DOESN'T HAVE A LICENSE//
             if (hasLicense == "FALSE")
             {
-                return RedirectToAction("Add");
+                TempData[MessageConstant.ErrorMessage] = "Please create your license first!";
+                return RedirectToAction(nameof(Add));
             }
 
             //OBTAIN THE USER LICENSE AND CACHE IT FOR 20 SECONDS//
@@ -86,6 +87,7 @@ namespace DigiAviator.Controllers
             //REDIRECT IF USER HAS A LICENSE//
             if (hasLicense == "TRUE")
             {
+                TempData[MessageConstant.SuccessMessage] = "You already have a license!";
                 return RedirectToAction("Overview");
             }
 

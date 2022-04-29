@@ -1,12 +1,11 @@
 ﻿using DigiAviator.Core.Contracts;
 using DigiAviator.Core.Models;
-using System.ComponentModel;
 using System.Net;
 using System.Net.Mail;
 
 namespace DigiAviator.Core.Services
 {
-	public class EmailService : IEmailService
+    public class EmailService : IEmailService
 	{
 		private readonly IValidationService _validationService;
 

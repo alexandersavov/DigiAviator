@@ -1,11 +1,9 @@
-﻿using DigiAviator.Core.Contracts;
-using DigiAviator.Core.Constants;
+﻿using DigiAviator.Core.Constants;
+using DigiAviator.Core.Contracts;
 using DigiAviator.Core.Models;
-using DigiAviator.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Identity;
 using DigiAviator.Infrastructure.Data.Models.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace DigiAviator.Controllers
@@ -53,6 +51,7 @@ namespace DigiAviator.Controllers
             //REDIRECT IF USER DOESN'T HAVE A LOGBOOK//
             if (hasLogbook == "FALSE")
             {
+                TempData[MessageConstant.ErrorMessage] = "Please create your logbook first!";
                 return RedirectToAction(nameof(Add));
             }
 
@@ -91,7 +90,8 @@ namespace DigiAviator.Controllers
             //REDIRECT IF USER HAS A LOGBOOK//
             if (hasLogbook == "TRUE")
             {
-                return RedirectToAction("Overview");
+                TempData[MessageConstant.SuccessMessage] = "You already have a logbook!";
+                return RedirectToAction(nameof(Overview));
             }
 
             return View();
@@ -119,6 +119,46 @@ namespace DigiAviator.Controllers
             }
 
             return RedirectToAction(nameof(Overview));            
+        }
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            //CHECK FOR LICENSE AND CACHE THE VALUE FOR 1 MINUTE//
+            LogbookAddViewModel logbookToEdit;
+
+            logbookToEdit = _memoryCache.Get<LogbookAddViewModel>("logbookToEdit_" + id);
+
+            if (logbookToEdit == null)
+            {
+                logbookToEdit = await _service.GetLogbookForEdit(id);
+                _memoryCache.Set("licenseToEdit_" + id, logbookToEdit, TimeSpan.FromMinutes(1));
+            }
+
+            return View(logbookToEdit);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(LogbookAddViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            string userId = _userManager.GetUserId(User);
+
+            if (await _service.UpdateLogbook(userId, model))
+            {
+                _memoryCache.Remove("license_" + _userManager.GetUserId(User));
+                TempData[MessageConstant.SuccessMessage] = "Logbook updated successfully";
+                return RedirectToAction("Overview");
+            }
+            else
+            {
+                ViewData[MessageConstant.ErrorMessage] = "Could not update logbook";
+            }
+
+            return View(model);
         }
 
         public IActionResult AddFlight()

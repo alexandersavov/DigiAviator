@@ -118,7 +118,109 @@ namespace DigiAviator.Core.Services
             };
         }
 
-		public async Task<bool> HasLogbook(string userId)
+        public async Task<LogbookAddViewModel> GetLogbookForEdit(string logbookId)
+        {
+            var logbook = await _repo.All<Logbook>()
+                .Where(l => l.Id == Guid.Parse(logbookId))
+                .FirstOrDefaultAsync();
+
+            return new LogbookAddViewModel()
+            {
+                FirstName = logbook.FirstName,
+                MiddleName= logbook.MiddleName,
+                LastName= logbook.LastName,
+                Address= logbook.Address
+            };
+        }
+
+        public async Task<string> GetLongestFlight(string userId)
+        {
+            var logbook = await _repo.All<Logbook>()
+                .Where(l => l.HolderId == userId)
+                .Include(l => l.Flights)
+                .FirstOrDefaultAsync();
+
+            if (logbook == null)
+            {
+                throw new ArgumentException("Invalid user!");
+            }
+
+            string longestFlightTime = String.Empty;
+
+            var longestFlight = logbook.Flights
+                .OrderByDescending(f => f.TotalFlightTime)
+                .FirstOrDefault();
+
+            if (longestFlight == null)
+            {
+                longestFlightTime = "No flights logged!";
+            }
+            else
+            {
+                longestFlightTime = longestFlight.TotalFlightTime.ToString(@"hh\:mm");
+            }
+
+            return longestFlightTime;
+        }
+
+
+
+        public async Task<string> GetMostFlownAircraft(string userId)
+        {
+            var logbook = await _repo.All<Logbook>()
+                .Where(l => l.HolderId == userId)
+                .Include(l => l.Flights)
+                .FirstOrDefaultAsync();
+
+            if (logbook == null)
+            {
+                throw new ArgumentException("Invalid user!");
+            }
+
+            var mostFlownAircraft = logbook.Flights
+                   .GroupBy(f => f.AircraftRegistration)
+                   .Select(a => new { name = a.Key, count = a.Count() })
+                   .First();
+
+            string result = mostFlownAircraft.name;
+
+            return result;
+        }
+
+        public async Task<string> GetTotalFlightTime(string userId)
+        {
+            var logbook = await _repo.All<Logbook>()
+                .Where(l => l.HolderId == userId)
+                .Include(l => l.Flights)
+                .FirstOrDefaultAsync();
+
+            if (logbook == null)
+            {
+                throw new ArgumentException("Invalid user!");
+            }
+
+            TimeSpan totalTime = TimeSpan.Zero;
+
+            foreach (var flight in logbook.Flights)
+            {
+                totalTime += flight.TotalFlightTime;
+            };
+
+            string totalFlightTime = String.Empty;
+
+            if (totalTime == TimeSpan.MinValue)
+            {
+                totalFlightTime = "No flights logged!";
+            }
+            else
+            {
+                totalFlightTime = totalTime.ToString(@"hh\:mm");
+            }
+
+            return totalFlightTime;
+        }
+
+        public async Task<bool> HasLogbook(string userId)
 		{
             bool hasMedical = false;
 
@@ -133,5 +235,28 @@ namespace DigiAviator.Core.Services
 
             return hasMedical;
         }
-	}
+
+        public async Task<bool> UpdateLogbook(string userId, LogbookAddViewModel model)
+        {
+            bool updated = false;
+
+            var logbook = await _repo.All<Logbook>()
+                .Where(m => m.HolderId == userId)
+                .FirstOrDefaultAsync();
+
+            if (logbook != null)
+            {
+                logbook.FirstName = model.FirstName;
+                logbook.MiddleName = model.MiddleName;
+                logbook.LastName = model.LastName;
+                logbook.Address = model.Address;
+
+                _repo.Update(logbook);
+                await _repo.SaveChangesAsync();
+                updated = true;
+            }
+
+            return updated;
+        }
+    }
 }
