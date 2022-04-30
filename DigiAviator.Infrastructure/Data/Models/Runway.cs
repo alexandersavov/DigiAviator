@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DigiAviator.Infrastructure.Data.Models
 {
-    public class Runway : IValidatableObject
+    public class Runway
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
@@ -42,10 +42,5 @@ namespace DigiAviator.Infrastructure.Data.Models
 
         [Range(0, 20000)]
         public int LDA { get; set; }
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

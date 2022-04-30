@@ -28,7 +28,7 @@ namespace DigiAviator.Core.Services
             {
 				using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587))
 				{
-					smtpClient.Credentials = new NetworkCredential("djowlie@gmail.com", "wabalabadubdub");
+					smtpClient.Credentials = new NetworkCredential("djowlie@gmail.com", "@NicolaiION20");
 					smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
 					smtpClient.EnableSsl = true;
 

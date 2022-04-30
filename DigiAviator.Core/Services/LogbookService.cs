@@ -10,10 +10,13 @@ namespace DigiAviator.Core.Services
     public class LogbookService : ILogbookService
     {
         private readonly IApplicationDbRepository _repo;
+        private readonly IValidationService _validationService;
 
-        public LogbookService(IApplicationDbRepository repo)
+        public LogbookService(IApplicationDbRepository repo,
+            IValidationService validationService)
         {
             _repo = repo;
+            _validationService = validationService;
         }
 
         public async Task AddFlightToLogbook(string id, FlightAddViewModel model)
@@ -42,6 +45,13 @@ namespace DigiAviator.Core.Services
                 LogbookId = logbook.Id
             };
 
+            var (isValid, validationError) = _validationService.ValidateModel(flight);
+
+            if (!isValid)
+            {
+                throw new ArgumentException("Invalidflight information.");
+            }
+
             if (logbook != null)
             {
                 logbook.Flights.Add(flight);
@@ -60,6 +70,13 @@ namespace DigiAviator.Core.Services
                 Address = model.Address,
                 HolderId = userId
             };
+
+            var (isValid, validationError) = _validationService.ValidateModel(logbook);
+
+            if (!isValid)
+            {
+                throw new ArgumentException("Invalid logbook information.");
+            }
 
             if (logbook != null)
             {
@@ -80,6 +97,11 @@ namespace DigiAviator.Core.Services
                 .Where(l => l.HolderId == userId)
                 .Include(l => l.Flights)
                 .FirstOrDefaultAsync();
+
+            if (logbook == null)
+            {
+                throw new ArgumentException("Unknown user id.");
+            }
 
             List<FlightListViewModel> flights = new List<FlightListViewModel>();
 
@@ -142,7 +164,7 @@ namespace DigiAviator.Core.Services
 
             if (logbook == null)
             {
-                return "No logbook found. Longest flight time is 00:00";
+                return "No logbook found! Longest flight time is 00:00";
             }
 
             string longestFlightTime = String.Empty;
@@ -153,7 +175,7 @@ namespace DigiAviator.Core.Services
 
             if (longestFlight == null)
             {
-                longestFlightTime = "No flights logged!";
+                longestFlightTime = "No flights logged! Longest flight time is 00:00";
             }
             else
             {
@@ -163,8 +185,6 @@ namespace DigiAviator.Core.Services
             return longestFlightTime;
         }
 
-
-
         public async Task<string> GetMostFlownAircraft(string userId)
         {
             var logbook = await _repo.All<Logbook>()
@@ -172,9 +192,9 @@ namespace DigiAviator.Core.Services
                 .Include(l => l.Flights)
                 .FirstOrDefaultAsync();
 
-            if (logbook == null)
+            if (logbook == null || logbook.Flights.Count == 0)
             {
-                return "No logbook found.";
+                return "No flights logged!";
             }
 
             var mostFlownAircraft = logbook.Flights
@@ -196,7 +216,7 @@ namespace DigiAviator.Core.Services
 
             if (logbook == null)
             {
-                return "No logbook found. Flight time is 00:00";
+                return "No logbook found! Flight time is 00:00";
             }
 
             TimeSpan totalTime = TimeSpan.Zero;
@@ -208,9 +228,9 @@ namespace DigiAviator.Core.Services
 
             string totalFlightTime = String.Empty;
 
-            if (totalTime == TimeSpan.MinValue)
+            if (totalTime == TimeSpan.Zero)
             {
-                totalFlightTime = "No flights logged!";
+                totalFlightTime = "No logbook found. Flight time is 00:00";
             }
             else
             {
