@@ -142,7 +142,7 @@ namespace DigiAviator.Core.Services
 
             if (logbook == null)
             {
-                throw new ArgumentException("Invalid user!");
+                return "No logbook found. Longest flight time is 00:00";
             }
 
             string longestFlightTime = String.Empty;
@@ -174,7 +174,7 @@ namespace DigiAviator.Core.Services
 
             if (logbook == null)
             {
-                throw new ArgumentException("Invalid user!");
+                return "No logbook found.";
             }
 
             var mostFlownAircraft = logbook.Flights
@@ -196,7 +196,7 @@ namespace DigiAviator.Core.Services
 
             if (logbook == null)
             {
-                throw new ArgumentException("Invalid user!");
+                return "No logbook found. Flight time is 00:00";
             }
 
             TimeSpan totalTime = TimeSpan.Zero;

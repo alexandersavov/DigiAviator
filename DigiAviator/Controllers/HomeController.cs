@@ -32,11 +32,14 @@ namespace DigiAviator.Controllers
         {
             string userId = _userManager.GetUserId(User);
 
-            ViewData["LongestFlight"] = await _logbookService.GetLongestFlight(userId);
-            ViewData["TotalFlightTime"] = await _logbookService.GetTotalFlightTime(userId);
-            ViewData["MostFlownAircraft"] = await _logbookService.GetMostFlownAircraft(userId);
-            ViewData["ValidMedical"] = await _medicalService.HasValidMedical(userId);
-            ViewData["ValidLicense"] = await _licenseService.HasValidLicense(userId);
+            if (userId != null)
+            {
+                ViewData["LongestFlight"] = await _logbookService.GetLongestFlight(userId);
+                ViewData["TotalFlightTime"] = await _logbookService.GetTotalFlightTime(userId);
+                ViewData["MostFlownAircraft"] = await _logbookService.GetMostFlownAircraft(userId);
+                ViewData["ValidMedical"] = await _medicalService.HasValidMedical(userId);
+                ViewData["ValidLicense"] = await _licenseService.HasValidLicense(userId);
+            }
 
             return View();
         }
