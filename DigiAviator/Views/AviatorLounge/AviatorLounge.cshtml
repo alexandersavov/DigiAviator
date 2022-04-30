@@ -4,24 +4,17 @@
     ViewBag.Title = "Aviator's Lounge - Chat with fellow pilots";
 }
 
+     <div class="text-center">
+		<h1 class="display-4">Aviator's Lounge</h1>
+		<p>
+			Chat with fellow pilots about anything aviation related. Keep it civil. Report misbehaviour through our contact page.
+		</p>
+	 </div>   
 
 <!-- DIRECT CHAT -->
             <div class="card direct-chat direct-chat-primary">
               <div class="card-header">
-                <h3 class="card-title">Aviator's Lounge</h3>
-
-                <div class="card-tools">
-                  <span title="3 New Messages" class="badge badge-primary">3</span>
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
-                    <i class="fas fa-comments"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
+                <h3 class="card-title">Chat</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -133,7 +126,7 @@
               <div class="card-footer">
                 <form action="#" method="post">
                   <div class="input-group">
-                    <input type="text" name="message" id="userInput" placeholder="User" class="form-control">
+                    <input type="hidden" name="message" id="userInput" value=@ViewData["User"] class="form-control">
                     <input type="text" name="message" id="messageInput" placeholder="Type Message ..." class="form-control">
                     <span class="input-group-append">
                       <button type="button" class="btn btn-primary" id="sendButton" value="Send Message">Send</button>

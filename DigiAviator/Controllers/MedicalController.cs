@@ -48,7 +48,8 @@ namespace DigiAviator.Controllers
             //REDIRECT IF USER DOESN'T HAVE A MEDICAL//
             if (hasMedical == "FALSE")
             {
-                return RedirectToAction("Add");
+                TempData[MessageConstant.ErrorMessage] = "Please add your medical first!";
+                return RedirectToAction(nameof(Add));
             }
 
             //OBTAIN THE USER MEDICAL AND CACHE IT FOR 20 SECONDS//
@@ -86,7 +87,8 @@ namespace DigiAviator.Controllers
             //REDIRECT IF USER DOESN'T HAVE A MEDICAL//
             if (hasMedical == "TRUE")
 			{
-                return RedirectToAction("Overview");
+                TempData[MessageConstant.SuccessMessage] = "You already have a medical!";
+                return RedirectToAction(nameof(Overview));
             }
 
             return View();

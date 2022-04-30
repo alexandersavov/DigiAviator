@@ -88,7 +88,7 @@ namespace DigiAviator.Controllers
             if (hasLicense == "TRUE")
             {
                 TempData[MessageConstant.SuccessMessage] = "You already have a license!";
-                return RedirectToAction("Overview");
+                return RedirectToAction(nameof(Overview));
             }
 
             return View();
